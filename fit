@@ -1,0 +1,927 @@
+<html style="margin:0;padding:0;">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+(function(){
+  var s = document.createElement('style');
+  s.textContent = ':root{--bg:#f7fcf9;--card:#ffffff;--text:#0f172a;--muted:#64748b;--accent:#0d9669;--accent-soft:rgba(13,150,105,.14);--accent2:#d4724a;--accent2-soft:rgba(212,114,74,.14);--border:rgba(15,23,42,.08)}.reveal{opacity:0;transform:translateY(20px);animation:fadeUp .6s ease forwards}.reveal:nth-child(2){animation-delay:.1s}.reveal:nth-child(3){animation-delay:.2s}.reveal:nth-child(4){animation-delay:.3s}.reveal:nth-child(5){animation-delay:.4s}.reveal:nth-child(6){animation-delay:.5s}@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}.tab-btn{transition:all .25s ease}.tab-btn.active{background:var(--accent-soft);color:var(--text);border-bottom:3px solid var(--accent);font-weight:700}.tab-content{display:none}.tab-content.active{display:block;animation:fadeIn .4s ease}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.meal-card{transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}.meal-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(13,150,105,.12);border-color:var(--accent)}.exercise-card{transition:all .2s ease}.exercise-card:hover{background:var(--accent-soft)}.day-pill{transition:all .2s ease;cursor:pointer}.day-pill.active{background:var(--accent);color:#fff}.exercise-item{transition:all .2s ease}.exercise-item.done{opacity:.65}.exercise-item.done .ex-name{text-decoration:line-through}.exercise-item:hover{background:var(--accent-soft)}.custom-checkbox{width:24px;height:24px;border-radius:7px;border:2px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s ease;flex-shrink:0;background:var(--card)}.custom-checkbox.checked{background:var(--accent);border-color:var(--accent)}.custom-checkbox:hover:not(.checked){border-color:var(--accent);background:var(--accent-soft)}.progress-bar{height:10px;background:rgba(128,128,128,.1);border-radius:20px;overflow:hidden}.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:20px;transition:width .4s ease}.complete-btn{transition:all .25s ease}.complete-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 24px var(--accent-soft)}.complete-btn:disabled{opacity:.5;cursor:not-allowed}.day-complete-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:13px;font-weight:800;margin-left:8px;flex-shrink:0}.streak-fire{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:linear-gradient(135deg,var(--accent2-soft),var(--accent-soft));border-radius:20px;font-weight:700;color:var(--text);font-size:14px;border:1px solid var(--border)}.calc-input{width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s ease}.calc-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}.calc-select{width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text);font-size:14px;font-family:inherit;outline:none;cursor:pointer;transition:border-color .2s ease}.calc-select:focus{border-color:var(--accent)}.calc-btn{padding:13px 28px;border-radius:12px;font-weight:700;font-size:15px;background:var(--accent);color:#fff;border:none;cursor:pointer;transition:all .2s ease}.calc-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px var(--accent-soft)}.result-card{padding:18px;border-radius:14px;border:1px solid var(--border);background:var(--bg)}.result-card.highlight{background:linear-gradient(135deg,var(--accent-soft),transparent);border-color:var(--accent)}.bmi-bar{height:14px;background:linear-gradient(90deg,#3b82f6 0%,#3b82f6 1%,#10b981 11%,#10b981 30%,#f59e0b 30%,#f59e0b 50%,#ef4444 50%,#ef4444 100%);border-radius:20px;position:relative;margin-top:8px}.bmi-indicator{position:absolute;top:-4px;width:4px;height:22px;background:var(--text);border-radius:2px;transition:left .5s ease;box-shadow:0 0 0 3px #fff,0 0 8px rgba(0,0,0,.3)}.size-badge{display:inline-block;padding:6px 18px;border-radius:10px;font-weight:800;font-size:24px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;letter-spacing:.05em}.food-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:var(--bg);transition:all .2s ease}.food-item:hover{border-color:var(--accent);background:var(--accent-soft)}.food-del{width:28px;height:28px;border-radius:8px;border:none;background:rgba(186,59,91,.12);color:#ba3b5b;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s ease}.food-del:hover{background:#ba3b5b;color:#fff}.quick-chip{display:inline-block;padding:6px 12px;border-radius:20px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s ease;margin:3px}.quick-chip:hover{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}.calo-ring{position:relative;width:160px;height:160px;border-radius:50%;background:conic-gradient(var(--accent) 0deg,var(--accent2) 200deg,rgba(128,128,128,.12) 200deg);display:flex;align-items:center;justify-content:center}.calo-ring-inner{width:120px;height:120px;border-radius:50%;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center}';
+  document.head.appendChild(s);
+})();
+</script>
+<div style="background-color:transparent;box-sizing:border-box;">
+  <div style="color:var(--text);font-family:'Nunito',sans-serif;background:radial-gradient(1000px 500px at 90% -5%, var(--accent-soft), transparent 60%), var(--bg);min-height:100%;">
+    <div class="max-w-6xl mx-auto px-5 py-10">
+
+      <!-- HERO HEADER -->
+      <div class="reveal mb-10">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px;">
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+            <div style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;box-shadow:0 8px 24px var(--accent-soft);">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6.5 6.5l11 11"/><path d="M21 21l-1-1"/><path d="M3 3l1 1"/><path d="M18 22l4-4"/><path d="M2 6l4-4"/><path d="M3 10l7-7"/><path d="M14 21l7-7"/></svg>
+            </div>
+            <div>
+              <p style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:700;">Ứng dụng thể dục tại nhà</p>
+              <h1 class="text-4xl font-extrabold" style="color:var(--text);letter-spacing:-0.02em;line-height:1.15;">
+                MY-HI <span style="background:linear-gradient(100deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent">FIT</span>
+              </h1>
+            </div>
+          </div>
+          <div id="streakDisplay" class="streak-fire">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="color:var(--accent2);"><path d="M13.5 0.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg>
+            <span id="streakCount">0</span> ngày liên tục
+          </div>
+        </div>
+        <p style="color:var(--muted);max-width:620px;line-height:1.7;font-size:16px;">
+          Hướng dẫn tập luyện toàn diện + thực đơn dinh dưỡng khoa học + công cụ tính toán + nhật ký ăn uống cá nhân hóa
+        </p>
+      </div>
+
+      <!-- METRIC CARDS -->
+      <div class="reveal flex flex-wrap gap-4 mb-10">
+        <div class="rounded-2xl p-5" style="flex:1 1 180px;background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+            <div style="width:34px;height:34px;border-radius:10px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;color:var(--accent);">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+            </div>
+            <div style="color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">Ngày tập</div>
+          </div>
+          <div style="color:var(--text);font-size:30px;font-weight:800;">4<span style="font-size:16px;color:var(--muted);font-weight:600;"> / tuần</span></div>
+        </div>
+        <div class="rounded-2xl p-5" style="flex:1 1 180px;background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+            <div style="width:34px;height:34px;border-radius:10px;background:var(--accent2-soft);display:flex;align-items:center;justify-content:center;color:var(--accent2);">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </div>
+            <div style="color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">Đã hoàn thành</div>
+          </div>
+          <div id="completedDays" style="color:var(--text);font-size:30px;font-weight:800;">0<span style="font-size:16px;color:var(--muted);font-weight:600;"> ngày</span></div>
+        </div>
+        <div class="rounded-2xl p-5" style="flex:1 1 180px;background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+            <div style="width:34px;height:34px;border-radius:10px;background:rgba(45,126,181,.14);display:flex;align-items:center;justify-content:center;color:#2d7eb5;">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <div style="color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">Nhóm cơ</div>
+          </div>
+          <div style="color:var(--text);font-size:30px;font-weight:800;">7<span style="font-size:16px;color:var(--muted);font-weight:600;"> nhóm chính</span></div>
+        </div>
+        <div class="rounded-2xl p-5" style="flex:1 1 180px;background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+            <div style="width:34px;height:34px;border-radius:10px;background:rgba(186,59,91,.12);display:flex;align-items:center;justify-content:center;color:#ba3b5b;">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div style="color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">Thời gian/bữa</div>
+          </div>
+          <div style="color:var(--text);font-size:30px;font-weight:800;">45<span style="font-size:16px;color:var(--muted);font-weight:600;"> phút</span></div>
+        </div>
+      </div>
+
+      <!-- TABS NAVIGATION -->
+      <div class="reveal mb-2" style="display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--border);">
+        <button class="tab-btn active" data-tab="overview" style="padding:14px 20px;border:none;background:transparent;color:var(--muted);font-size:14px;font-weight:600;border-radius:10px 10px 0 0;cursor:pointer;">
+          <span style="display:inline-flex;align-items:center;gap:7px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Tổng quan
+          </span>
+        </button>
+        <button class="tab-btn" data-tab="calculator" style="padding:14px 20px;border:none;background:transparent;color:var(--muted);font-size:14px;font-weight:600;border-radius:10px 10px 0 0;cursor:pointer;">
+          <span style="display:inline-flex;align-items:center;gap:7px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/></svg>
+            Công cụ tính
+          </span>
+        </button>
+        <button class="tab-btn" data-tab="foodlog" style="padding:14px 20px;border:none;background:transparent;color:var(--muted);font-size:14px;font-weight:600;border-radius:10px 10px 0 0;cursor:pointer;">
+          <span style="display:inline-flex;align-items:center;gap:7px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/></svg>
+            Nhật ký ăn uống
+          </span>
+        </button>
+        <button class="tab-btn" data-tab="schedule" style="padding:14px 20px;border:none;background:transparent;color:var(--muted);font-size:14px;font-weight:600;border-radius:10px 10px 0 0;cursor:pointer;">
+          <span style="display:inline-flex;align-items:center;gap:7px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Lịch tập
+          </span>
+        </button>
+        <button class="tab-btn" data-tab="meals" style="padding:14px 20px;border:none;background:transparent;color:var(--muted);font-size:14px;font-weight:600;border-radius:10px 10px 0 0;cursor:pointer;">
+          <span style="display:inline-flex;align-items:center;gap:7px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/></svg>
+            Thực đơn
+          </span>
+        </button>
+        <button class="tab-btn" data-tab="exercises" style="padding:14px 20px;border:none;background:transparent;color:var(--muted);font-size:14px;font-weight:600;border-radius:10px 10px 0 0;cursor:pointer;">
+          <span style="display:inline-flex;align-items:center;gap:7px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6.5 6.5l11 11"/><path d="M21 21l-1-1"/><path d="M3 3l1 1"/></svg>
+            Bài tập
+          </span>
+        </button>
+      </div>
+
+      <!-- TAB: OVERVIEW -->
+      <div id="overview" class="tab-content active" style="padding:28px 0;">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div class="rounded-2xl p-7" style="background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
+            <h2 class="text-xl font-bold mb-4" style="color:var(--text);">
+              <span style="display:inline-flex;align-items:center;gap:10px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent);"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                Thông số máy MY-HI Power Tower
+              </span>
+            </h2>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div style="padding:12px 14px;background:var(--accent-soft);border-radius:10px;"><div style="font-size:12px;color:var(--muted);font-weight:600;">Tải trọng tối đa</div><div style="font-size:18px;font-weight:800;color:var(--text);">400 kg</div></div>
+              <div style="padding:12px 14px;background:var(--accent2-soft);border-radius:10px;"><div style="font-size:12px;color:var(--muted);font-weight:600;">Chiều cao</div><div style="font-size:18px;font-weight:800;color:var(--text);">186–236 cm</div></div>
+              <div style="padding:12px 14px;background:rgba(45,126,181,.10);border-radius:10px;"><div style="font-size:12px;color:var(--muted);font-weight:600;">Diện tích</div><div style="font-size:18px;font-weight:800;color:var(--text);">< 1 m²</div></div>
+              <div style="padding:12px 14px;background:rgba(186,59,91,.10);border-radius:10px;"><div style="font-size:12px;color:var(--muted);font-weight:600;">Bảo hành</div><div style="font-size:18px;font-weight:800;color:var(--text);">5 năm</div></div>
+            </div>
+            <div style="margin-top:16px;padding:14px;border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 8px 8px 0;">
+              <div style="font-weight:700;color:var(--text);margin-bottom:4px;">Chức năng chính</div>
+              <div style="color:var(--muted);font-size:14px;line-height:1.6;">Xà đơn, xà kép, chống đẩy, nâng chân, kéo dây kháng lực — tập toàn thân tại nhà</div>
+            </div>
+          </div>
+          <div class="rounded-2xl p-7" style="background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
+            <h2 class="text-xl font-bold mb-4" style="color:var(--text);">
+              <span style="display:inline-flex;align-items:center;gap:10px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent2);"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>
+                Lưu ý an toàn
+              </span>
+            </h2>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--accent);font-weight:800;flex-shrink:0;">01</span><span style="color:var(--text);line-height:1.5;">Kiểm tra ốc vít và độ chắc chắn của máy <strong>trước mỗi buổi tập</strong></span></div>
+              <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--accent);font-weight:800;flex-shrink:0;">02</span><span style="color:var(--text);line-height:1.5;">Điều chỉnh chiều cao phù hợp: xà cao hơn đầu 20–30 cm, xà kép ngang ngực</span></div>
+              <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--accent);font-weight:800;flex-shrink:0;">03</span><span style="color:var(--text);line-height:1.5;">Luôn khởi động 5–7 phút trước khi tập chính để phòng ngừa chấn thương</span></div>
+              <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--accent);font-weight:800;flex-shrink:0;">04</span><span style="color:var(--text);line-height:1.5;">Thở đúng kỹ thuật: <strong>thở ra khi cố gắng</strong>, hít vào khi trở về vị trí</span></div>
+              <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--accent);font-weight:800;flex-shrink:0;">05</span><span style="color:var(--text);line-height:1.5;">Tăng dần cường độ; không đột ngột dừng khi mệt; giữ thăng bằng tốt</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-2xl p-7" style="background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
+          <h2 class="text-xl font-bold mb-5" style="color:var(--text);">
+            <span style="display:inline-flex;align-items:center;gap:10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent);"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              7 Nhóm cơ chính được tập luyện
+            </span>
+          </h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;">
+            <div style="padding:14px 16px;border-radius:12px;background:linear-gradient(135deg,var(--accent-soft),transparent);border:1px solid var(--border);"><div style="font-weight:700;color:var(--text);font-size:15px;">Cơ lưng</div><div style="font-size:13px;color:var(--muted);margin-top:3px;">Hít xà rộng, kéo dây</div></div>
+            <div style="padding:14px 16px;border-radius:12px;background:linear-gradient(135deg,var(--accent2-soft),transparent);border:1px solid var(--border);"><div style="font-weight:700;color:var(--text);font-size:15px;">Cơ ngực</div><div style="font-size:13px;color:var(--muted);margin-top:3px;">Chống đẩy, Dips</div></div>
+            <div style="padding:14px 16px;border-radius:12px;background:linear-gradient(135deg,rgba(45,126,181,.12),transparent);border:1px solid var(--border);"><div style="font-weight:700;color:var(--text);font-size:15px;">Cơ vai</div><div style="font-size:13px;color:var(--muted);margin-top:3px;">Nâng vai, đẩy vai</div></div>
+            <div style="padding:14px 16px;border-radius:12px;background:linear-gradient(135deg,rgba(186,59,91,.10),transparent);border:1px solid var(--border);"><div style="font-weight:700;color:var(--text);font-size:15px;">Cơ tay</div><div style="font-size:13px;color:var(--muted);margin-top:3px;">Tay trước & tay sau</div></div>
+            <div style="padding:14px 16px;border-radius:12px;background:linear-gradient(135deg,rgba(13,148,136,.12),transparent);border:1px solid var(--border);"><div style="font-weight:700;color:var(--text);font-size:15px;">Cơ bụng</div><div style="font-size:13px;color:var(--muted);margin-top:3px;">Nâng chân, gập bụng</div></div>
+            <div style="padding:14px 16px;border-radius:12px;background:linear-gradient(135deg,rgba(217,119,6,.12),transparent);border:1px solid var(--border);"><div style="font-weight:700;color:var(--text);font-size:15px;">Cơ mông</div><div style="font-size:13px;color:var(--muted);margin-top:3px;">Nâng chân bên</div></div>
+            <div style="padding:14px 16px;border-radius:12px;background:linear-gradient(135deg,rgba(37,99,171,.10),transparent);border:1px solid var(--border);"><div style="font-weight:700;color:var(--text);font-size:15px;">Cơ chân</div><div style="font-size:13px;color:var(--muted);margin-top:3px;">Bắp chân, đùi</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: CALCULATOR -->
+      <div id="calculator" class="tab-content" style="padding:28px 0;">
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+          <div class="lg:col-span-2 rounded-2xl p-7" style="background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
+            <h2 class="text-xl font-bold mb-2" style="color:var(--text);">
+              <span style="display:inline-flex;align-items:center;gap:10px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent);"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/></svg>
+                Nhập thông tin của anh
+              </span>
+            </h2>
+            <p style="color:var(--muted);font-size:13px;margin-bottom:20px;">Nhập chính xác để có kết quả cá nhân hóa nhất</p>
+            <div style="display:flex;flex-direction:column;gap:16px;">
+              <div><label style="display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;">Chiều cao (cm)</label><input id="inpHeight" type="number" class="calc-input" placeholder="ví dụ: 170" value="170" min="100" max="250"></div>
+              <div><label style="display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;">Cân nặng (kg)</label><input id="inpWeight" type="number" class="calc-input" placeholder="ví dụ: 65" value="65" min="30" max="200"></div>
+              <div><label style="display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;">Tuổi</label><input id="inpAge" type="number" class="calc-input" placeholder="ví dụ: 28" value="28" min="12" max="100"></div>
+              <div><label style="display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;">Giới tính</label><select id="inpGender" class="calc-select"><option value="male">Nam</option><option value="female">Nữ</option></select></div>
+              <div><label style="display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;">Mức độ hoạt động</label><select id="inpActivity" class="calc-select"><option value="1.2">Ít vận động (chủ yếu ngồi)</option><option value="1.375">Vận động nhẹ (1–3 buổi/tuần)</option><option value="1.55" selected>Vận động trung bình (3–5 buổi/tuần)</option><option value="1.725">Vận động nặng (6–7 buổi/tuần)</option><option value="1.9">Vận động rất nặng (thể thao chuyên nghiệp)</option></select></div>
+              <div><label style="display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;">Mục tiêu</label><select id="inpGoal" class="calc-select"><option value="gain">Tăng cơ bắp</option><option value="maintain" selected>Duy trì hình thể</option><option value="lose">Giảm mỡ thừa</option></select></div>
+              <button id="calcBtn" class="calc-btn" style="display:flex;align-items:center;justify-content:center;gap:8px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                Tính toán ngay
+              </button>
+            </div>
+          </div>
+          <div class="lg:col-span-3" style="display:flex;flex-direction:column;gap:16px;">
+            <div class="rounded-2xl p-7" style="background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
+              <h3 style="font-weight:700;color:var(--text);font-size:16px;margin-bottom:14px;">Chỉ số BMI</h3>
+              <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px;flex-wrap:wrap;">
+                <span id="bmiValue" style="font-size:42px;font-weight:800;color:var(--text);line-height:1;">22.5</span>
+                <span id="bmiStatus" style="padding:4px 14px;border-radius:20px;font-weight:700;font-size:14px;background:var(--accent-soft);color:var(--accent);">Bình thường</span>
+              </div>
+              <div class="bmi-bar"><div id="bmiIndicator" class="bmi-indicator" style="left:30%;"></div></div>
+              <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--muted);"><span>Gầy</span><span>Bình thường</span><span>Thừa cân</span><span>Béo phì</span></div>
+              <p id="bmiDesc" style="margin-top:14px;font-size:13px;color:var(--muted);line-height:1.6;">Chỉ số BMI ở mức bình thường. Anh đang có vóc dáng cân đối, hãy duy trì chế độ ăn uống và tập luyện hợp lý nhé!</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="result-card highlight"><div style="font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">Năng lượng mục tiêu</div><div style="display:flex;align-items:baseline;gap:4px;flex-wrap:wrap;"><span id="caloTarget" style="font-size:32px;font-weight:800;color:var(--accent);">2,450</span><span style="font-size:14px;color:var(--muted);font-weight:600;">kcal</span></div><div id="caloGoalLabel" style="font-size:12px;color:var(--accent2);font-weight:700;margin-top:4px;">→ Duy trì hình thể</div></div>
+              <div class="result-card"><div style="font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">BMR (cơ bản)</div><div style="display:flex;align-items:baseline;gap:4px;flex-wrap:wrap;"><span id="bmrValue" style="font-size:26px;font-weight:800;color:var(--text);">1,620</span><span style="font-size:13px;color:var(--muted);font-weight:600;">kcal</span></div><div style="font-size:12px;color:var(--muted);margin-top:4px;">Năng lượng nghỉ ngơi</div></div>
+              <div class="result-card"><div style="font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">TDEE (toàn phần)</div><div style="display:flex;align-items:baseline;gap:4px;flex-wrap:wrap;"><span id="tdeeValue" style="font-size:26px;font-weight:800;color:var(--text);">2,150</span><span style="font-size:13px;color:var(--muted);font-weight:600;">kcal</span></div><div style="font-size:12px;color:var(--muted);margin-top:4px;">Năng lượng tiêu hao thực tế</div></div>
+            </div>
+            <div class="rounded-2xl p-7" style="background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
+              <h3 style="font-weight:700;color:var(--text);font-size:16px;margin-bottom:16px;">Chia lượng chất dinh dưỡng mỗi ngày</h3>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;">
+                <div style="padding:16px;border-radius:12px;background:linear-gradient(135deg,rgba(13,150,105,.12),transparent);border:1px solid var(--border);"><div style="font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px;">Chất đạm</div><div style="display:flex;align-items:baseline;gap:4px;"><span id="proteinG" style="font-size:28px;font-weight:800;color:var(--accent);">130</span><span style="font-size:13px;color:var(--muted);">g</span></div><div id="proteinKcal" style="font-size:12px;color:var(--muted);margin-top:2px;">520 kcal · 30%</div></div>
+                <div style="padding:16px;border-radius:12px;background:linear-gradient(135deg,rgba(212,114,74,.12),transparent);border:1px solid var(--border);"><div style="font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px;">Tinh bột</div><div style="display:flex;align-items:baseline;gap:4px;"><span id="carbsG" style="font-size:28px;font-weight:800;color:var(--accent2);">337</span><span style="font-size:13px;color:var(--muted);">g</span></div><div id="carbsKcal" style="font-size:12px;color:var(--muted);margin-top:2px;">1,348 kcal · 55%</div></div>
+                <div style="padding:16px;border-radius:12px;background:linear-gradient(135deg,rgba(186,59,91,.10),transparent);border:1px solid var(--border);"><div style="font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px;">Chất béo</div><div style="display:flex;align-items:baseline;gap:4px;"><span id="fatG" style="font-size:28px;font-weight:800;color:#ba3b5b;">68</span><span style="font-size:13px;color:var(--muted);">g</span></div><div id="fatKcal" style="font-size:12px;color:var(--muted);margin-top:2px;">613 kcal · 25%</div></div>
+              </div>
+            </div>
+            <div class="rounded-2xl p-7" style="background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
+              <h3 style="font-weight:700;color:var(--text);font-size:16px;margin-bottom:16px;">Size quần áo gợi ý (Nam)</h3>
+              <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+                <div><div style="font-size:13px;color:var(--muted);font-weight:600;margin-bottom:8px;">Dựa trên chiều cao & cân nặng</div><div class="size-badge" id="sizeBadge">L</div><div id="sizeDesc" style="font-size:13px;color:var(--muted);margin-top:10px;line-height:1.6;">Phù hợp với cân nặng 65–75kg</div></div>
+                <div style="flex:1;min-width:200px;"><div style="font-size:12px;color:var(--muted);font-weight:600;margin-bottom:8px;">Vòng eo ước tính</div><div style="display:flex;align-items:baseline;gap:6px;"><span id="waistEst" style="font-size:24px;font-weight:800;color:var(--text);">80</span><span style="font-size:14px;color:var(--muted);">cm</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: FOOD LOG (MỚI!) -->
+      <div id="foodlog" class="tab-content" style="padding:28px 0;">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- TỔNG KẾT HÔM NAY -->
+          <div class="lg:col-span-1 rounded-2xl p-7" style="background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
+            <h2 class="text-xl font-bold mb-4" style="color:var(--text);">
+              <span style="display:inline-flex;align-items:center;gap:10px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent);"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/><path d="M12 6v6l4 2"/></svg>
+                Hôm nay
+              </span>
+            </h2>
+            <div style="display:flex;justify-content:center;margin-bottom:20px;">
+              <div class="calo-ring" id="caloRing">
+                <div class="calo-ring-inner">
+                  <div id="ringConsumed" style="font-size:28px;font-weight:800;color:var(--text);line-height:1;">0</div>
+                  <div style="font-size:11px;color:var(--muted);margin-top:2px;">/ <span id="ringTarget">2,450</span> kcal</div>
+                  <div id="ringPct" style="font-size:13px;font-weight:700;color:var(--accent);margin-top:4px;">0%</div>
+                </div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+              <div style="padding:12px;border-radius:10px;background:var(--accent-soft);text-align:center;"><div style="font-size:11px;color:var(--muted);font-weight:600;">Đã nạp</div><div id="totalConsumed" style="font-size:20px;font-weight:800;color:var(--accent);">0</div><div style="font-size:10px;color:var(--muted);">kcal</div></div>
+              <div style="padding:12px;border-radius:10px;background:var(--accent2-soft);text-align:center;"><div style="font-size:11px;color:var(--muted);font-weight:600;">Còn lại</div><div id="totalRemaining" style="font-size:20px;font-weight:800;color:var(--accent2);">2,450</div><div style="font-size:10px;color:var(--muted);">kcal</div></div>
+            </div>
+            <div style="padding:14px;border-radius:10px;background:var(--bg);border:1px solid var(--border);">
+              <div style="font-size:12px;color:var(--muted);font-weight:600;margin-bottom:8px;">Tiến độ mục tiêu</div>
+              <div class="progress-bar"><div id="foodProgressFill" class="progress-fill" style="width:0%;"></div></div>
+              <div id="foodProgressMsg" style="font-size:12px;color:var(--muted);margin-top:8px;">Bắt đầu nhập bữa ăn đầu tiên nhé!</div>
+            </div>
+            <button id="resetFoodDay" style="margin-top:14px;width:100%;padding:10px;border-radius:10px;border:1px solid rgba(186,59,91,.3);background:transparent;color:#ba3b5b;font-weight:600;font-size:13px;cursor:pointer;transition:all .2s ease;" onmouseover="this.style.background='rgba(186,59,91,.08)'" onmouseout="this.style.background='transparent'">
+              Đặt lại nhật ký hôm nay
+            </button>
+          </div>
+
+          <!-- NHẬP BỮA ĂN -->
+          <div class="lg:col-span-2 rounded-2xl p-7" style="background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
+            <h2 class="text-xl font-bold mb-2" style="color:var(--text);">
+              <span style="display:inline-flex;align-items:center;gap:10px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent2);"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
+                Nhập bữa ăn
+              </span>
+            </h2>
+            <p style="color:var(--muted);font-size:13px;margin-bottom:18px;">Chọn bữa, nhập tên món ăn và số calo. Hoặc nhấn nhanh vào các món gợi ý bên dưới!</p>
+            
+            <!-- Form nhập -->
+            <div style="display:grid;grid-template-columns:120px 1fr 120px auto;gap:10px;margin-bottom:16px;align-items:end;">
+              <div>
+                <label style="display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;">Bữa ăn</label>
+                <select id="foodMeal" class="calc-select" style="padding:10px 12px;">
+                  <option value="breakfast">🌅 Bữa sáng</option>
+                  <option value="lunch">☀️ Bữa trưa</option>
+                  <option value="dinner">🌆 Bữa tối</option>
+                  <option value="snack">🥤 Bữa phụ</option>
+                </select>
+              </div>
+              <div>
+                <label style="display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;">Tên món ăn</label>
+                <input id="foodName" type="text" class="calc-input" placeholder="ví dụ: Cơm gà luộc" style="padding:10px 12px;">
+              </div>
+              <div>
+                <label style="display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;">Calo (kcal)</label>
+                <input id="foodCalo" type="number" class="calc-input" placeholder="350" min="1" style="padding:10px 12px;">
+              </div>
+              <button id="addFoodBtn" class="calc-btn" style="padding:10px 18px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </button>
+            </div>
+
+            <!-- Món ăn nhanh -->
+            <div style="margin-bottom:20px;">
+              <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;">⚡ Nhấn nhanh món ăn phổ biến:</div>
+              <div id="quickFoods">
+                <span class="quick-chip" data-name="Cơm trắng 1 chén" data-calo="200">Cơm trắng 1 chén · 200 kcal</span>
+                <span class="quick-chip" data-name="Cơm gạo lứt 1 chén" data-calo="180">Cơm gạo lứt · 180 kcal</span>
+                <span class="quick-chip" data-name="Ức gà luộc 100g" data-calo="165">Ức gà luộc 100g · 165 kcal</span>
+                <span class="quick-chip" data-name="Thịt bò 100g" data-calo="250">Thịt bò 100g · 250 kcal</span>
+                <span class="quick-chip" data-name="Cá hồi 100g" data-calo="208">Cá hồi 100g · 208 kcal</span>
+                <span class="quick-chip" data-name="Trứng luộc 1 quả" data-calo="78">Trứng luộc · 78 kcal</span>
+                <span class="quick-chip" data-name="Bánh mì đen 1 lát" data-calo="80">Bánh mì đen 1 lát · 80 kcal</span>
+                <span class="quick-chip" data-name="Sữa chua không đường" data-calo="100">Sữa chua · 100 kcal</span>
+                <span class="quick-chip" data-name="Chuối 1 quả" data-calo="105">Chuối · 105 kcal</span>
+                <span class="quick-chip" data-name="Táo 1 quả" data-calo="95">Táo · 95 kcal</span>
+                <span class="quick-chip" data-name="Hạnh nhân 10 hạt" data-calo="70">Hạnh nhân 10 hạt · 70 kcal</span>
+                <span class="quick-chip" data-name="Phở bò 1 tô" data-calo="450">Phở bò 1 tô · 450 kcal</span>
+                <span class="quick-chip" data-name="Bún chả cá 1 tô" data-calo="380">Bún chả cá · 380 kcal</span>
+                <span class="quick-chip" data-name="Cà phê sữa đá" data-calo="120">Cà phê sữa đá · 120 kcal</span>
+                <span class="quick-chip" data-name="Nước ngọt 1 lon" data-calo="140">Nước ngọt 1 lon · 140 kcal</span>
+              </div>
+            </div>
+
+            <!-- Danh sách bữa ăn đã nhập -->
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+              <div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div style="width:10px;height:10px;border-radius:50%;background:rgba(255,193,7,.8);"></div><div style="font-weight:700;color:var(--text);font-size:15px;">🌅 Bữa sáng</div><div id="breakfastTotal" style="margin-left:auto;font-size:13px;font-weight:700;color:var(--accent);">0 kcal</div></div>
+                <div id="list-breakfast" style="display:flex;flex-direction:column;gap:8px;min-height:50px;"><div style="padding:12px;border-radius:10px;border:1px dashed var(--border);color:var(--muted);font-size:12px;text-align:center;">Chưa có món ăn nào</div></div>
+              </div>
+              <div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--accent);"></div><div style="font-weight:700;color:var(--text);font-size:15px;">☀️ Bữa trưa</div><div id="lunchTotal" style="margin-left:auto;font-size:13px;font-weight:700;color:var(--accent);">0 kcal</div></div>
+                <div id="list-lunch" style="display:flex;flex-direction:column;gap:8px;min-height:50px;"><div style="padding:12px;border-radius:10px;border:1px dashed var(--border);color:var(--muted);font-size:12px;text-align:center;">Chưa có món ăn nào</div></div>
+              </div>
+              <div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div style="width:10px;height:10px;border-radius:50%;background:#2d7eb5;"></div><div style="font-weight:700;color:var(--text);font-size:15px;">🌆 Bữa tối</div><div id="dinnerTotal" style="margin-left:auto;font-size:13px;font-weight:700;color:var(--accent);">0 kcal</div></div>
+                <div id="list-dinner" style="display:flex;flex-direction:column;gap:8px;min-height:50px;"><div style="padding:12px;border-radius:10px;border:1px dashed var(--border);color:var(--muted);font-size:12px;text-align:center;">Chưa có món ăn nào</div></div>
+              </div>
+              <div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--accent2);"></div><div style="font-weight:700;color:var(--text);font-size:15px;">🥤 Bữa phụ</div><div id="snackTotal" style="margin-left:auto;font-size:13px;font-weight:700;color:var(--accent);">0 kcal</div></div>
+                <div id="list-snack" style="display:flex;flex-direction:column;gap:8px;min-height:50px;"><div style="padding:12px;border-radius:10px;border:1px dashed var(--border);color:var(--muted);font-size:12px;text-align:center;">Chưa có món ăn nào</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: SCHEDULE -->
+      <div id="schedule" class="tab-content" style="padding:28px 0;">
+        <div class="rounded-2xl p-7 mb-6" style="background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
+          <h2 class="text-xl font-bold mb-2" style="color:var(--text);">Lịch tập 4 ngày / tuần</h2>
+          <p style="color:var(--muted);font-size:14px;margin-bottom:20px;">Nhấn vào <strong>ô vuông</strong> bên cạnh mỗi bài tập để đánh dấu hoàn thành</p>
+          <div style="margin-bottom:20px;padding:16px;background:var(--bg);border-radius:12px;border:1px solid var(--border);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
+              <div style="font-weight:700;color:var(--text);">Tiến độ ngày hôm nay</div>
+              <div id="progressText" style="font-weight:800;color:var(--accent);font-size:18px;">0%</div>
+            </div>
+            <div class="progress-bar"><div id="progressFill" class="progress-fill" style="width:0%;"></div></div>
+          </div>
+          <div id="daySelector" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;">
+            <button class="day-pill active" data-day="mon" style="padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-weight:600;font-size:14px;display:flex;align-items:center;">Thứ 2 · Lưng + Tay trước<span class="day-complete-badge hidden" data-badge="mon">✓</span></button>
+            <button class="day-pill" data-day="tue" style="padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-weight:600;font-size:14px;display:flex;align-items:center;">Thứ 3 · Ngực + Vai<span class="day-complete-badge hidden" data-badge="tue">✓</span></button>
+            <button class="day-pill" data-day="wed" style="padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-weight:600;font-size:14px;display:flex;align-items:center;">Thứ 4 · Bụng + Phục hồi<span class="day-complete-badge hidden" data-badge="wed">✓</span></button>
+            <button class="day-pill" data-day="thu" style="padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-weight:600;font-size:14px;display:flex;align-items:center;">Thứ 5 · Toàn thân + Chân<span class="day-complete-badge hidden" data-badge="thu">✓</span></button>
+            <button class="day-pill" data-day="fri" style="padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-weight:600;font-size:14px;display:flex;align-items:center;">Thứ 6–CN · Nghỉ<span class="day-complete-badge hidden" data-badge="fri">✓</span></button>
+          </div>
+          <div id="dayContent">
+            <div class="day-plan" data-day="mon"><div style="padding:14px 18px;background:var(--accent-soft);border-radius:12px;margin-bottom:16px;"><div style="font-weight:800;color:var(--text);font-size:17px;">Thứ 2 — Tập Lưng + Tay Trước</div><div style="color:var(--muted);font-size:13px;margin-top:3px;">Tập trung: Lưng xô, lưng rộng, lưng giữa, cơ tay trước</div></div><div id="ex-mon" style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;"></div></div>
+            <div class="day-plan hidden" data-day="tue"><div style="padding:14px 18px;background:var(--accent2-soft);border-radius:12px;margin-bottom:16px;"><div style="font-weight:800;color:var(--text);font-size:17px;">Thứ 3 — Tập Ngực + Tay Sau + Vai</div><div style="color:var(--muted);font-size:13px;margin-top:3px;">Tập trung: Ngực giữa & dưới, tay sau, vai trước & sau</div></div><div id="ex-tue" style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;"></div></div>
+            <div class="day-plan hidden" data-day="wed"><div style="padding:14px 18px;background:rgba(45,126,181,.12);border-radius:12px;margin-bottom:16px;"><div style="font-weight:800;color:var(--text);font-size:17px;">Thứ 4 — Tập Bụng + Phục hồi</div><div style="color:var(--muted);font-size:13px;margin-top:3px;">Tập trung: Bụng trên, bụng dưới, bụng chéo + giãn cơ</div></div><div id="ex-wed" style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;"></div></div>
+            <div class="day-plan hidden" data-day="thu"><div style="padding:14px 18px;background:rgba(186,59,91,.10);border-radius:12px;margin-bottom:16px;"><div style="font-weight:800;color:var(--text);font-size:17px;">Thứ 5 — Tập Toàn thân + Chân</div><div style="color:var(--muted);font-size:13px;margin-top:3px;">Tập trung: Tổng hợp các nhóm cơ + mông, bắp chân</div></div><div id="ex-thu" style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;"></div></div>
+            <div class="day-plan hidden" data-day="fri"><div style="padding:14px 18px;background:rgba(13,148,136,.10);border-radius:12px;margin-bottom:16px;"><div style="font-weight:800;color:var(--text);font-size:17px;">Thứ 6 – Chủ Nhật — Nghỉ & Phục hồi</div><div style="color:var(--muted);font-size:13px;margin-top:3px;">Cơ bắp phát triển khi nghỉ ngơi, không phải khi tập!</div></div><div id="ex-fri" style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;"></div></div>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+            <button id="completeDayBtn" class="complete-btn" disabled style="padding:14px 28px;border-radius:12px;font-weight:700;font-size:15px;background:var(--accent);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;gap:8px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              Hoàn thành ngày & sang ngày tiếp
+            </button>
+            <button id="resetDayBtn" style="padding:14px 22px;border-radius:12px;font-weight:600;font-size:14px;background:var(--bg);color:var(--muted);border:1px solid var(--border);cursor:pointer;">Đặt lại ngày này</button>
+            <button id="resetAllBtn" style="padding:14px 22px;border-radius:12px;font-weight:600;font-size:14px;background:var(--bg);color:#ba3b5b;border:1px solid rgba(186,59,91,.3);cursor:pointer;">Đặt lại toàn bộ</button>
+            <span id="completeMsg" style="color:var(--muted);font-size:13px;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: MEALS -->
+      <div id="meals" class="tab-content" style="padding:28px 0;">
+        <div class="rounded-2xl p-7 mb-6" style="background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
+          <h2 class="text-xl font-bold mb-2" style="color:var(--text);">Thực đơn mẫu 7 ngày</h2>
+          <p style="color:var(--muted);font-size:14px;margin-bottom:20px;">💡 <strong>Mẹo:</strong> Sang tab "Công cụ tính" để có mục tiêu calo, rồi sang "Nhật ký ăn uống" để theo dõi nhé!</p>
+          <div id="mealDaySelector" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:24px;">
+            <button class="meal-day-pill active" data-mealday="1" style="padding:8px 16px;border-radius:20px;border:1px solid var(--accent);background:var(--accent);color:#fff;font-weight:600;font-size:13px;cursor:pointer;">Thứ 2</button>
+            <button class="meal-day-pill" data-mealday="2" style="padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-weight:600;font-size:13px;cursor:pointer;">Thứ 3</button>
+            <button class="meal-day-pill" data-mealday="3" style="padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-weight:600;font-size:13px;cursor:pointer;">Thứ 4</button>
+            <button class="meal-day-pill" data-mealday="4" style="padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-weight:600;font-size:13px;cursor:pointer;">Thứ 5</button>
+            <button class="meal-day-pill" data-mealday="5" style="padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-weight:600;font-size:13px;cursor:pointer;">Thứ 6</button>
+            <button class="meal-day-pill" data-mealday="6" style="padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-weight:600;font-size:13px;cursor:pointer;">Thứ 7</button>
+            <button class="meal-day-pill" data-mealday="7" style="padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-weight:600;font-size:13px;cursor:pointer;">Chủ Nhật</button>
+          </div>
+          <div id="mealContent">
+            <div class="meal-day-plan" data-mealday="1"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa sáng</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 1 ổ bánh mì đen<br>• 2 quả trứng luộc<br>• 200ml sữa tươi không đường<br>• 1 quả chuối</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa trưa</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 1 chén cơm gạo lứt<br>• 150g ức gà luộc<br>• Rau cải luộc tự do<br>• Canh bí đỏ thịt băm nạc</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa tối</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 150g cá hồi áp chảo<br>• 2 củ khoai tây luộc<br>• Rau xà lách, cà chua tự do</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa phụ</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 150g sữa chua không đường<br>• 10 hạt hạnh nhân</div></div>
+            </div></div>
+            <div class="meal-day-plan hidden" data-mealday="2"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa sáng</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 50g yến mạch nấu sữa<br>• 1 quả táo<br>• 15g bơ đậu phộng</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa trưa</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 1 chén cơm trắng<br>• 150g thịt bò bắp xào hành tây<br>• Rau bông cải luộc + dưa leo</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa tối</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 150g tôm hấp<br>• Cải xanh luộc<br>• 1 chén chè đậu đỗ không đường</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa phụ</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 200ml sinh tố chuối + sữa hạnh nhân</div></div>
+            </div></div>
+            <div class="meal-day-plan hidden" data-mealday="3"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa sáng</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 2 cuốn bánh cuốn thịt nạc<br>• 200ml nước cam tươi không đường</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa trưa</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 1 chén cơm gạo lứt<br>• 150g thịt nạc kho tiêu<br>• Rau muống luộc<br>• Canh rau ngót thịt nạc</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa tối</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 150g ức gà luộc xé phay<br>• Nộm dưa leo cà rốt<br>• 1 củ khoai lang luộc</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa phụ</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 1 quả lê<br>• 15g hạt điều</div></div>
+            </div></div>
+            <div class="meal-day-plan hidden" data-mealday="4"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa sáng</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 3 lát bánh mì đen<br>• 2 quả trứng chiên ít dầu<br>• 200ml sữa đậu nành không đường</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa trưa</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 1 chén cơm trắng<br>• 150g cá lóc kho tộ<br>• Rau cải ngồng luộc<br>• Canh rau má thịt băm</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa tối</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 150g thịt bò nướng lá lốt<br>• Rau sống tự do<br>• Nửa chén cơm gạo lứt nhỏ</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa phụ</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 1 hũ sữa chua có hạt é<br>• 1 quả cam</div></div>
+            </div></div>
+            <div class="meal-day-plan hidden" data-mealday="5"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa sáng</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 1 tô phở bò ít bánh nhiều thịt<br>• Không uống hết nước lèo</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa trưa</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 1 chén cơm gạo lứt<br>• Cá hấp gừng hành<br>• Rau cải xào tỏi</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa tối</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• Canh chua cá lóc<br>• Rau luộc tự do<br>• Nửa chén cơm</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa phụ</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 2–3 tép bưởi<br>• 15g hạt điều</div></div>
+            </div></div>
+            <div class="meal-day-plan hidden" data-mealday="6"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa sáng</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 2 cuốn bánh cuốn tôm<br>• 200ml sữa đậu nành nóng không đường</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa trưa</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 1 đùi gà luộc<br>• Nửa đĩa xôi ngũ cốc<br>• Rau sống, dưa leo tự do</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa tối</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• Lẩu cá hồi nấu chua ngọt<br>• Nhiều rau<br>• Không ăn cơm</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa phụ</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 1 hũ sữa chua hoa quả tươi</div></div>
+            </div></div>
+            <div class="meal-day-plan hidden" data-mealday="7"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa sáng</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 1 tô bún chả cá<br>• Không ăn hết bánh</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa trưa</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• Cơm nhà bình thường<br>• Ưu tiên thịt luộc<br>• Rau xanh nhiều</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa tối</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• 150g thịt luộc<br>• Nộm rau củ<br>• Ít cơm hoặc không ăn cơm</div></div>
+              <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:10px;">Bữa phụ</div><div style="color:var(--text);line-height:1.7;font-size:14px;">• Trái cây theo mùa<br>• 1–2 loại tùy thích</div></div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: EXERCISES -->
+      <div id="exercises" class="tab-content" style="padding:28px 0;">
+        <div class="rounded-2xl p-7 mb-6" style="background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
+          <h2 class="text-xl font-bold mb-2" style="color:var(--text);">Hướng dẫn chi tiết từng bài tập</h2>
+          <div id="muscleSelector" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;">
+            <button class="muscle-pill active" data-muscle="back" style="padding:10px 18px;border-radius:10px;border:1px solid var(--accent);background:var(--accent);color:#fff;font-weight:600;font-size:13px;cursor:pointer;">Cơ lưng</button>
+            <button class="muscle-pill" data-muscle="chest" style="padding:10px 18px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-weight:600;font-size:13px;cursor:pointer;">Cơ ngực</button>
+            <button class="muscle-pill" data-muscle="shoulder" style="padding:10px 18px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-weight:600;font-size:13px;cursor:pointer;">Cơ vai</button>
+            <button class="muscle-pill" data-muscle="arm" style="padding:10px 18px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-weight:600;font-size:13px;cursor:pointer;">Cơ tay</button>
+            <button class="muscle-pill" data-muscle="abs" style="padding:10px 18px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-weight:600;font-size:13px;cursor:pointer;">Cơ bụng</button>
+            <button class="muscle-pill" data-muscle="leg" style="padding:10px 18px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-weight:600;font-size:13px;cursor:pointer;">Cơ chân & mông</button>
+          </div>
+          <div id="muscleContent">
+            <div class="muscle-group" data-muscle="back"><div style="display:flex;flex-direction:column;gap:14px;">
+              <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:6px;">1. Hít xà tay rộng → Lưng xô</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Nắm xà rộng hơn vai, lòng bàn tay hướng ra. Kéo người lên cho cằm vượt xà, giữ 1 giây, hạ từ từ. Chuẩn: 3 hiệp × 6–12 lần</div></div>
+              <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:6px;">2. Hít xà hẹp ngửa tay → Lưng giữa + Tay trước</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Nắm xà rộng bằng vai, lòng bàn tay hướng về mặt. Kéo lên cho ngực chạm xà. Chuẩn: 3 hiệp × 6–12 lần</div></div>
+              <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:6px;">3. Kéo dây kháng lực → Lưng dưới & rộng</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Móc dây vào hai điểm dưới khung, tay cầm hai đầu. Ngả người sau, kéo dây về sườn, ép hai vai lại. Chuẩn: 3 hiệp × 12–15 lần</div></div>
+            </div></div>
+            <div class="muscle-group hidden" data-muscle="chest"><div style="display:flex;flex-direction:column;gap:14px;">
+              <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:6px;">1. Chống đẩy tay cầm nghiêng → Ngực giữa</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Hai tay nắm thanh cầm thấp, thân người thẳng. Hạ ngực gần tay cầm, đẩy lên. Chuẩn: 3 hiệp × 10–15 lần</div></div>
+              <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:6px;">2. Dips (xà kép) → Ngực dưới + Tay sau</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Hai tay đỡ trên thanh xà kép, chân duỗi thẳng. Hạ thân người cho đến khi khuỷu tay góc 90°. Chuẩn: 3 hiệp × 8–12 lần</div></div>
+            </div></div>
+            <div class="muscle-group hidden" data-muscle="shoulder"><div style="display:flex;flex-direction:column;gap:14px;">
+              <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:6px;">1. Đẩy vai trên xà kép → Vai trước + Tay sau</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Ngồi hướng ra sau, hai tay đỡ sau lưng trên thanh xà kép. Đẩy thân người lên cao. Chuẩn: 3 hiệp × 10–12 lần</div></div>
+              <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:6px;">2. Treo nâng vai → Vai sau + Lưng trên</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Treo người thẳng trên xà, chỉ nâng vai lên cao gần tai rồi hạ xuống. Chuẩn: 3 hiệp × 10–15 lần</div></div>
+            </div></div>
+            <div class="muscle-group hidden" data-muscle="arm"><div style="display:flex;flex-direction:column;gap:14px;">
+              <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:6px;">1. Kéo dây cuốn cổ tay → Tay trước</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Cuộn cổ tay cuộn lên rồi hạ chậm, giữ khuỷu tay cố định. Chuẩn: 3 hiệp × 15–20 lần</div></div>
+              <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:6px;">2. Chống đẩy tay hẹp → Tay sau</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Hai tay đặt gần nhau, khuỷu tay khép sát thân người. Đẩy lên mạnh. Chuẩn: 3 hiệp × 8–12 lần</div></div>
+            </div></div>
+            <div class="muscle-group hidden" data-muscle="abs"><div style="display:flex;flex-direction:column;gap:14px;">
+              <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:6px;">1. Nâng gối treo → Bụng dưới</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Treo người trên xà, nâng gối về ngực cao nhất, hạ từ từ. Không đung đưa. Chuẩn: 3 hiệp × 10–15 lần</div></div>
+              <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:6px;">2. Gập bụng đỡ lưng → Bụng trên</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Dùng đệm đỡ lưng, chân móc vào thanh cố định. Gập thân người về trước. Chuẩn: 3 hiệp × 15–20 lần</div></div>
+            </div></div>
+            <div class="muscle-group hidden" data-muscle="leg"><div style="display:flex;flex-direction:column;gap:14px;">
+              <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:6px;">1. Nâng mũi chân đứng → Bắp chân</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Đứng cạnh máy, tay đỡ nhẹ. Nâng gót chân cao nhất, giữ 2 giây, hạ chậm. Chuẩn: 4 hiệp × 20–25 lần</div></div>
+              <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;color:var(--text);font-size:16px;margin-bottom:6px;">2. Nâng chân bên → Mông + Đùi ngoài</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Đứng sát máy, một tay đỡ thanh đứng. Nâng chân ra bên ngoài cao nhất. Chuẩn: 3 hiệp × 12–15 lần/mỗi chân</div></div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="mt-12 pt-6" style="border-top:1px solid var(--border);">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+          <p style="font-size:13px;color:var(--muted);">MY-HI FIT · Ứng dụng tập luyện & dinh dưỡng tại nhà</p>
+          <p style="font-size:13px;color:var(--muted);">Chăm chỉ tập luyện + Ăn uống khoa học = Kết quả bền vững</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ===== DỮ LIỆU BÀI TẬP =====
+  var exerciseData = {
+    mon: [
+      {name: 'Hít xà tay rộng', sets: '3 hiệp × 8–12 lần', muscle: 'Lưng xô, lưng rộng', color: 'var(--accent)'},
+      {name: 'Hít xà hẹp ngửa tay', sets: '3 hiệp × 8–12 lần', muscle: 'Lưng giữa + Tay trước', color: 'var(--accent)'},
+      {name: 'Kéo dây kháng lực', sets: '3 hiệp × 12–15 lần', muscle: 'Lưng dưới & lưng rộng', color: 'var(--accent)'},
+      {name: 'Nâng vai treo', sets: '3 hiệp × 10–15 lần', muscle: 'Vai sau + Lưng trên', color: 'var(--accent)'}
+    ],
+    tue: [
+      {name: 'Chống đẩy tay cầm nghiêng', sets: '3 hiệp × 10–15 lần', muscle: 'Ngực giữa', color: 'var(--accent2)'},
+      {name: 'Dips (xà kép)', sets: '3 hiệp × 8–12 lần', muscle: 'Ngực dưới + Tay sau', color: 'var(--accent2)'},
+      {name: 'Đẩy vai trên xà kép', sets: '3 hiệp × 10–12 lần', muscle: 'Vai trước + Tay sau', color: 'var(--accent2)'},
+      {name: 'Kéo dây ngang vai', sets: '3 hiệp × 15–20 lần', muscle: 'Vai sau + Lưng giữa', color: 'var(--accent2)'}
+    ],
+    wed: [
+      {name: 'Nâng gối treo', sets: '3 hiệp × 10–15 lần', muscle: 'Bụng dưới', color: '#2d7eb5'},
+      {name: 'Nâng chân xoay hông', sets: '3 hiệp × 10–12 lần/mỗi bên', muscle: 'Bụng chéo', color: '#2d7eb5'},
+      {name: 'Gập bụng đỡ lưng', sets: '3 hiệp × 15–20 lần', muscle: 'Bụng trên', color: '#2d7eb5'},
+      {name: 'Giãn cơ toàn thân', sets: '20 phút', muscle: 'Phục hồi, tăng linh hoạt', color: '#2d7eb5'}
+    ],
+    thu: [
+      {name: 'Hít xà (tổng hợp)', sets: '3 hiệp × 8 lần', muscle: 'Lưng + Tay', color: '#ba3b5b'},
+      {name: 'Dips (xà kép)', sets: '3 hiệp × 10 lần', muscle: 'Ngực + Tay sau', color: '#ba3b5b'},
+      {name: 'Nâng chân bên', sets: '3 hiệp × 12–15 lần/mỗi chân', muscle: 'Mông + Đùi ngoài', color: '#ba3b5b'},
+      {name: 'Nâng mũi chân đứng', sets: '4 hiệp × 20–25 lần', muscle: 'Bắp chân', color: '#ba3b5b'}
+    ],
+    fri: [
+      {name: 'Đi bộ nhẹ', sets: '30–45 phút', muscle: 'Tăng tuần hoàn máu', color: '#0d9488'},
+      {name: 'Giãn cơ toàn thân', sets: '15 phút', muscle: 'Vai, lưng, hông, đùi', color: '#0d9488'},
+      {name: 'Ngủ đủ giấc', sets: '7–8 giờ', muscle: 'Cơ phục hồi mạnh nhất', color: '#0d9488'},
+      {name: 'Uống đủ nước', sets: '2–3 lít', muscle: 'Duy trì trao đổi chất', color: '#0d9488'}
+    ]
+  };
+
+  var dayOrder = ['mon', 'tue', 'wed', 'thu', 'fri'];
+  var dayNames = {mon: 'Thứ 2', tue: 'Thứ 3', wed: 'Thứ 4', thu: 'Thứ 5', fri: 'Thứ 6–CN'};
+
+  // ===== STATE TIẾN ĐỘ TẬP =====
+  var state = {
+    currentDay: 'mon',
+    completed: {},
+    dayCompleted: {},
+    streak: 0,
+    lastCompleteDate: null
+  };
+
+  try {
+    var saved = localStorage.getItem('myhifit_state_v2');
+    if(saved){
+      var parsed = JSON.parse(saved);
+      state.currentDay = parsed.currentDay || 'mon';
+      state.completed = parsed.completed || {};
+      state.dayCompleted = parsed.dayCompleted || {};
+      state.streak = parsed.streak || 0;
+      state.lastCompleteDate = parsed.lastCompleteDate || null;
+    }
+  } catch(e){}
+
+  function saveState(){
+    try { localStorage.setItem('myhifit_state_v2', JSON.stringify(state)); } catch(e){}
+  }
+
+  // ===== STATE NHẬT KÝ ĂN UỐNG =====
+  var foodState = {
+    targetCalo: 2450,
+    foods: {} // {breakfast: [{id,name,calo},...], lunch: [...], dinner: [...], snack: [...]}
+  };
+
+  function todayKey(){
+    var d = new Date();
+    return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
+  }
+
+  function loadFoodState(){
+    try {
+      var raw = localStorage.getItem('myhifit_food_v1');
+      if(raw){
+        var parsed = JSON.parse(raw);
+        if(parsed.date === todayKey()){
+          foodState.foods = parsed.foods || {};
+        }
+        if(parsed.targetCalo) foodState.targetCalo = parsed.targetCalo;
+      }
+    } catch(e){}
+  }
+
+  function saveFoodState(){
+    try {
+      localStorage.setItem('myhifit_food_v1', JSON.stringify({
+        date: todayKey(),
+        foods: foodState.foods,
+        targetCalo: foodState.targetCalo
+      }));
+    } catch(e){}
+  }
+
+  // ===== RENDER BÀI TẬP VỚI CHECKBOX =====
+  function renderDayExercises(day){
+    var container = document.getElementById('ex-' + day);
+    if(!container) return;
+    var exercises = exerciseData[day] || [];
+    container.innerHTML = '';
+    exercises.forEach(function(ex, idx){
+      var isDone = !!(state.completed[day] && state.completed[day][String(idx)]);
+      var item = document.createElement('div');
+      item.className = 'exercise-item' + (isDone ? ' done' : '');
+      item.style.cssText = 'display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--border);border-radius:12px;background:var(--bg);';
+      var checkIcon = isDone ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M9 11l3 3L22 4"/></svg>' : '';
+      item.innerHTML = '<div class="custom-checkbox' + (isDone ? ' checked' : '') + '" data-day="' + day + '" data-idx="' + idx + '">' + checkIcon + '</div><div style="flex:1;min-width:0;"><div class="ex-name" style="font-weight:700;color:var(--text);font-size:15px;">' + ex.name + '</div><div style="font-size:13px;color:var(--muted);margin-top:3px;display:flex;gap:16px;flex-wrap:wrap;"><span>' + ex.sets + '</span><span style="color:' + ex.color + ';font-weight:600;">' + ex.muscle + '</span></div></div>';
+      container.appendChild(item);
+    });
+    container.querySelectorAll('.custom-checkbox').forEach(function(cb){
+      cb.addEventListener('click', function(){
+        var d = this.getAttribute('data-day');
+        var i = this.getAttribute('data-idx');
+        toggleExercise(d, i);
+      });
+    });
+  }
+
+  function toggleExercise(day, idx){
+    if(!state.completed[day]) state.completed[day] = {};
+    var key = String(idx);
+    state.completed[day][key] = !state.completed[day][key];
+    if(!state.completed[day][key]) delete state.completed[day][key];
+    if(!state.completed[day][key] && state.dayCompleted[day]) delete state.dayCompleted[day];
+    saveState();
+    renderDayExercises(day);
+    updateProgress();
+    updateBadges();
+    updateStats();
+  }
+
+  function updateProgress(){
+    var day = state.currentDay;
+    var exercises = exerciseData[day] || [];
+    var total = exercises.length;
+    var done = 0;
+    for(var i = 0; i < total; i++){
+      if(state.completed[day] && state.completed[day][String(i)]) done++;
+    }
+    var pct = total > 0 ? Math.round((done / total) * 100) : 0;
+    document.getElementById('progressText').textContent = pct + '%';
+    document.getElementById('progressFill').style.width = pct + '%';
+    var btn = document.getElementById('completeDayBtn');
+    var msg = document.getElementById('completeMsg');
+    if(pct === 100 && !state.dayCompleted[day]){
+      btn.disabled = false;
+      msg.textContent = 'Tuyệt vời! Hoàn thành tất cả rồi — nhấn nút xanh để ghi nhận & chuyển ngày tiếp theo';
+      msg.style.color = 'var(--accent)';
+    } else if(state.dayCompleted[day]){
+      btn.disabled = true;
+      msg.textContent = '✓ Ngày này đã được ghi nhận hoàn thành!';
+      msg.style.color = 'var(--accent)';
+    } else {
+      btn.disabled = true;
+      msg.textContent = done + '/' + total + ' bài tập đã hoàn thành. Hoàn thành tất cả để kích hoạt nút chuyển ngày';
+      msg.style.color = 'var(--muted)';
+    }
+  }
+
+  function completeDayAndNext(){
+    var day = state.currentDay;
+    var exercises = exerciseData[day] || [];
+    var allDone = exercises.every(function(_, i){ return state.completed[day] && state.completed[day][String(i)]; });
+    if(!allDone) return;
+    state.dayCompleted[day] = true;
+    var today = new Date().toDateString();
+    if(state.lastCompleteDate !== today){ state.streak++; state.lastCompleteDate = today; }
+    saveState();
+    updateBadges();
+    updateStats();
+    var currentIdx = dayOrder.indexOf(day);
+    var nextIdx = (currentIdx + 1) % dayOrder.length;
+    var nextDay = dayOrder[nextIdx];
+    switchDay(nextDay);
+    var msg = document.getElementById('completeMsg');
+    msg.textContent = '🎉 Chúc mừng! Đã ghi nhận hoàn thành ' + dayNames[day] + ' — tự động chuyển sang ' + dayNames[nextDay];
+    msg.style.color = 'var(--accent)';
+  }
+
+  function resetDay(){
+    var day = state.currentDay;
+    state.completed[day] = {};
+    if(state.dayCompleted[day]){ delete state.dayCompleted[day]; if(state.streak > 0) state.streak--; }
+    saveState();
+    renderDayExercises(day);
+    updateProgress();
+    updateBadges();
+    updateStats();
+  }
+
+  function resetAll(){
+    if(!confirm('Bạn có chắc muốn đặt lại toàn bộ tiến độ tập luyện không?')) return;
+    state = {currentDay:'mon',completed:{},dayCompleted:{},streak:0,lastCompleteDate:null};
+    saveState();
+    dayOrder.forEach(function(d){ renderDayExercises(d); });
+    switchDay('mon');
+    updateBadges();
+    updateStats();
+  }
+
+  function switchDay(targetDay){
+    state.currentDay = targetDay;
+    saveState();
+    document.querySelectorAll('.day-pill').forEach(function(p){
+      var d = p.getAttribute('data-day');
+      if(d === targetDay){ p.classList.add('active'); p.style.background='var(--accent)'; p.style.color='#fff'; p.style.border='1px solid var(--accent)'; }
+      else { p.classList.remove('active'); p.style.background='var(--bg)'; p.style.color='var(--text)'; p.style.border='1px solid var(--border)'; }
+    });
+    document.querySelectorAll('.day-plan').forEach(function(plan){
+      plan.classList.toggle('hidden', plan.getAttribute('data-day') !== targetDay);
+    });
+    renderDayExercises(targetDay);
+    updateProgress();
+  }
+
+  function updateBadges(){
+    document.querySelectorAll('.day-complete-badge').forEach(function(badge){
+      var d = badge.getAttribute('data-badge');
+      badge.classList.toggle('hidden', !state.dayCompleted[d]);
+    });
+  }
+
+  function updateStats(){
+    var completedCount = Object.keys(state.dayCompleted).filter(function(k){ return state.dayCompleted[k]; }).length;
+    document.getElementById('completedDays').innerHTML = completedCount + '<span style="font-size:16px;color:var(--muted);font-weight:600;"> ngày</span>';
+    document.getElementById('streakCount').textContent = state.streak;
+  }
+
+  // ===== TAB CHUYỂN ĐỔI =====
+  document.querySelectorAll('.tab-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var target = this.getAttribute('data-tab');
+      document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+      this.classList.add('active');
+      document.querySelectorAll('.tab-content').forEach(function(c){ c.classList.remove('active'); });
+      document.getElementById(target).classList.add('active');
+    });
+  });
+
+  // ===== THỰC ĐƠN: CHUYỂN NGÀY =====
+  document.querySelectorAll('.meal-day-pill').forEach(function(pill){
+    pill.addEventListener('click', function(){
+      var target = this.getAttribute('data-mealday');
+      document.querySelectorAll('.meal-day-pill').forEach(function(p){
+        p.classList.remove('active'); p.style.background='var(--bg)'; p.style.color='var(--text)'; p.style.border='1px solid var(--border)';
+      });
+      this.classList.add('active'); this.style.background='var(--accent)'; this.style.color='#fff'; this.style.border='1px solid var(--accent)';
+      document.querySelectorAll('.meal-day-plan').forEach(function(plan){
+        plan.classList.toggle('hidden', plan.getAttribute('data-mealday') !== target);
+      });
+    });
+  });
+
+  // ===== NHÓM CƠ: CHUYỂN ĐỔI =====
+  document.querySelectorAll('.muscle-pill').forEach(function(pill){
+    pill.addEventListener('click', function(){
+      var target = this.getAttribute('data-muscle');
+      document.querySelectorAll('.muscle-pill').forEach(function(p){
+        p.classList.remove('active'); p.style.background='var(--bg)'; p.style.color='var(--text)'; p.style.border='1px solid var(--border)';
+      });
+      this.classList.add('active'); this.style.background='var(--accent)'; this.style.color='#fff'; this.style.border='1px solid var(--accent)';
+      document.querySelectorAll('.muscle-group').forEach(function(g){
+        g.classList.toggle('hidden', g.getAttribute('data-muscle') !== target);
+      });
+    });
+  });
+
+  // ===== CÔNG CỤ TÍNH TOÁN =====
+  function fmt(n){ return Math.round(n).toLocaleString('vi-VN'); }
+
+  function calculate(){
+    var h = parseFloat(document.getElementById('inpHeight').value) || 170;
+    var w = parseFloat(document.getElementById('inpWeight').value) || 65;
+    var age = parseInt(document.getElementById('inpAge').value) || 28;
+    var gender = document.getElementById('inpGender').value;
+    var activity = parseFloat(document.getElementById('inpActivity').value);
+    var goal = document.getElementById('inpGoal').value;
+
+    var hm = h / 100;
+    var bmi = w / (hm * hm);
+    var bmr;
+    if(gender === 'male') bmr = 10 * w + 6.25 * h - 5 * age + 5;
+    else bmr = 10 * w + 6.25 * h - 5 * age - 161;
+    var tdee = bmr * activity;
+    
+    var caloTarget;
+    var goalLabel, goalColor;
+    if(goal === 'gain'){ caloTarget = tdee + 300; goalLabel = '→ Tăng cơ bắp'; goalColor = 'var(--accent)'; }
+    else if(goal === 'lose'){ caloTarget = tdee - 400; goalLabel = '→ Giảm mỡ thừa'; goalColor = '#ba3b5b'; }
+    else { caloTarget = tdee; goalLabel = '→ Duy trì hình thể'; goalColor = 'var(--accent2)'; }
+
+    var proteinPct = goal === 'gain' ? 0.32 : (goal === 'lose' ? 0.35 : 0.28);
+    var fatPct = goal === 'lose' ? 0.28 : 0.22;
+    var carbsPct = 1 - proteinPct - fatPct;
+    
+    var proteinKcal = caloTarget * proteinPct;
+    var carbsKcal = caloTarget * carbsPct;
+    var fatKcal = caloTarget * fatPct;
+    var proteinG = proteinKcal / 4;
+    var carbsG = carbsKcal / 4;
+    var fatG = fatKcal / 9;
+
+    var bmiStatus, bmiColor, bmiBg, desc;
+    if(bmi < 18.5){ bmiStatus = 'Gầy'; bmiColor = '#3b82f6'; bmiBg = 'rgba(59,130,246,.14)'; desc = 'Chỉ số BMI thấp. Anh cần tăng cường dinh dưỡng, ăn nhiều hơn mức tiêu hao để đạt cân nặng khỏe mạnh hơn.'; }
+    else if(bmi < 23){ bmiStatus = 'Bình thường'; bmiColor = 'var(--accent)'; bmiBg = 'var(--accent-soft)'; desc = 'Chỉ số BMI ở mức bình thường. Anh đang có vóc dáng cân đối, hãy duy trì chế độ ăn uống và tập luyện hợp lý nhé!'; }
+    else if(bmi < 25){ bmiStatus = 'Thừa cân nhẹ'; bmiColor = '#d97706'; bmiBg = 'rgba(217,119,6,.14)'; desc = 'Chỉ số BMI hơi cao. Kết hợp tập luyện đều đặn và kiểm soát dinh dưỡng sẽ giúp anh nhanh chóng trở lại mức cân đối.'; }
+    else { bmiStatus = 'Béo phì'; bmiColor = '#ba3b5b'; bmiBg = 'rgba(186,59,91,.12)'; desc = 'Chỉ số BMI ở mức cao. Anh nên ưu tiên chế độ ăn giảm calo kết hợp tập luyện cardio + sức mạnh để cải thiện sức khỏe tổng thể.'; }
+    
+    var bmiPos;
+    if(bmi < 15) bmiPos = 0;
+    else if(bmi > 40) bmiPos = 100;
+    else bmiPos = ((bmi - 15) / 25) * 100;
+
+    var size, sizeDesc;
+    if(w < 55){ size = 'S'; sizeDesc = 'Phù hợp với cân nặng dưới 55kg'; }
+    else if(w < 65){ size = 'M'; sizeDesc = 'Phù hợp với cân nặng 55–65kg'; }
+    else if(w < 75){ size = 'L'; sizeDesc = 'Phù hợp với cân nặng 65–75kg'; }
+    else if(w < 85){ size = 'XL'; sizeDesc = 'Phù hợp với cân nặng 75–85kg'; }
+    else if(w < 95){ size = 'XXL'; sizeDesc = 'Phù hợp với cân nặng 85–95kg'; }
+    else { size = '3XL'; sizeDesc = 'Phù hợp với cân nặng trên 95kg'; }
+
+    var waistEst = Math.round(65 + (w - 50) * 0.6 + (h - 165) * 0.15);
+
+    document.getElementById('bmiValue').textContent = bmi.toFixed(1);
+    var bmiStatusEl = document.getElementById('bmiStatus');
+    bmiStatusEl.textContent = bmiStatus;
+    bmiStatusEl.style.color = bmiColor;
+    bmiStatusEl.style.background = bmiBg;
+    document.getElementById('bmiIndicator').style.left = bmiPos + '%';
+    document.getElementById('bmiDesc').textContent = desc;
+
+    document.getElementById('caloTarget').textContent = fmt(caloTarget);
+    document.getElementById('bmrValue').textContent = fmt(bmr);
+    document.getElementById('tdeeValue').textContent = fmt(tdee);
+    var goalLabelEl = document.getElementById('caloGoalLabel');
+    goalLabelEl.textContent = goalLabel;
+    goalLabelEl.style.color = goalColor;
+
+    document.getElementById('proteinG').textContent = fmt(proteinG);
+    document.getElementById('carbsG').textContent = fmt(carbsG);
+    document.getElementById('fatG').textContent = fmt(fatG);
+    document.getElementById('proteinKcal').textContent = fmt(proteinKcal) + ' kcal · ' + Math.round(proteinPct*100) + '%';
+    document.getElementById('carbsKcal').textContent = fmt(carbsKcal) + ' kcal · ' + Math.round(carbsPct*100) + '%';
+    document.getElementById('fatKcal').textContent = fmt(fatKcal) + ' kcal · ' + Math.round(fatPct*100) + '%';
+
+    document.getElementById('sizeBadge').textContent = size;
+    document.getElementById('sizeDesc').textContent = sizeDesc;
+    document.getElementById('waistEst').textContent = waistEst;
+
+    // Cập nhật mục tiêu calo cho nhật ký ăn uống
+    foodState.targetCalo = Math.round(caloTarget);
+    saveFoodState();
+    updateFoodSummary();
+  }
+
+  // ===== NHẬT KÝ ĂN UỐNG =====
+  function genId(){ return Date.now().toString(36) + Math.random().toString(36).substr(2, 5); }
+
+  function addFood(meal, name, calo){
+    if(!name || !name.trim() || !calo || calo <= 0) return;
+    if(!foodState.foods[meal]) foodState.foods[meal] = [];
+    foodState.foods[meal].push({id: genId(), name: name.trim(), calo: Math.round(calo)});
+    saveFoodState();
+    renderFoodList(meal);
+    updateFoodSummary();
+  }
+
+  function removeFood(meal, id){
+    if(!foodState.foods[meal]) return;
+    foodState.foods[meal] = foodState.foods[meal].filter(function(f){ return f.id !== id; });
+    saveFoodState();
+    renderFoodList(meal);
+    updateFoodSummary();
+  }
+
+  function renderFoodList(meal){
+    var container = document.getElementById('list-' + meal);
+    if(!container) return;
+    var foods = foodState.foods[meal] || [];
+    if(foods.length === 0){
+      container.innerHTML = '<div style="padding:12px;border-radius:10px;border:1px dashed var(--border);color:var(--muted);font-size:12px;text-align:center;">Chưa có món ăn nào</div>';
+      document.getElementById(meal + 'Total').textContent = '0 kcal';
+      return;
+    }
+    var total = 0;
+    container.innerHTML = foods.map(function(f){
+      total += f.calo;
+      return '<div class="food-item"><div style="flex:1;min-width:0;"><div style="font-weight:600;color:var(--text);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + f.name + '</div></div><div style="font-weight:700;color:var(--accent);font-size:13px;flex-shrink:0;">' + f.calo + ' kcal</div><button class="food-del" data-meal="' + meal + '" data-id="' + f.id + '" title="Xóa"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>';
+    }).join('');
+    document.getElementById(meal + 'Total').textContent = fmt(total) + ' kcal';
+    
+    // Gắn sự kiện xóa
+    container.querySelectorAll('.food-del').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        removeFood(this.getAttribute('data-meal'), this.getAttribute('data-id'));
+      });
+    });
+  }
+
+  function updateFoodSummary(){
+    var meals = ['breakfast', 'lunch', 'dinner', 'snack'];
+    var consumed = 0;
+    meals.forEach(function(m){
+      var foods = foodState.foods[m] || [];
+      foods.forEach(function(f){ consumed += f.calo; });
+    });
+    
+    var target = foodState.targetCalo;
+    var remaining = target - consumed;
+    var pct = target > 0 ? Math.min(100, Math.round((consumed / target) * 100)) : 0;
+    
+    document.getElementById('ringConsumed').textContent = fmt(consumed);
+    document.getElementById('ringTarget').textContent = fmt(target);
+    document.getElementById('ringPct').textContent = pct + '%';
+    document.getElementById('totalConsumed').textContent = fmt(consumed);
+    document.getElementById('totalRemaining').textContent = fmt(Math.max(0, remaining));
+    document.getElementById('foodProgressFill').style.width = pct + '%';
+    
+    // Vòng tròn
+    var ringDeg = Math.min(360, (consumed / target) * 360);
+    var ringColor1 = pct > 100 ? '#ba3b5b' : 'var(--accent)';
+    var ringColor2 = pct > 100 ? '#ef4444' : 'var(--accent2)';
+    document.getElementById('caloRing').style.background = 'conic-gradient(' + ringColor1 + ' 0deg, ' + ringColor2 + ' ' + ring
