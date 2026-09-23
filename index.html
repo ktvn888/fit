@@ -21,12 +21,15 @@
   css += '.food-del{width:28px;height:28px;border-radius:8px;border:none;background:rgba(186,59,91,.12);color:#ba3b5b;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}.food-del:hover{background:#ba3b5b;color:#fff}';
   css += '.quick-chip{display:inline-block;padding:6px 12px;border-radius:20px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s ease;margin:3px}.quick-chip:hover{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}';
   css += '.calo-ring{position:relative;width:160px;height:160px;border-radius:50%;display:flex;align-items:center;justify-content:center}.calo-ring-inner{width:120px;height:120px;border-radius:50%;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center}';
-  css += '.upload-area{border:2px dashed var(--border);border-radius:14px;padding:24px;text-align:center;cursor:pointer;transition:all .25s ease;background:var(--bg)}.upload-area:hover{border-color:var(--accent);background:var(--accent-soft)}';
-  css += '.suggest-card{padding:14px;border:1px solid var(--border);border-radius:12px;background:var(--bg);cursor:pointer;transition:all .2s ease;display:flex;align-items:center;gap:12px}.suggest-card:hover{border-color:var(--accent);background:var(--accent-soft);transform:translateX(4px)}';
+  css += '.upload-area{border:2px dashed var(--border);border-radius:14px;padding:24px;text-align:center;cursor:pointer;transition:all .25s ease;background:var(--bg);-webkit-tap-highlight-color:transparent}.upload-area:hover,.upload-area:active{border-color:var(--accent);background:var(--accent-soft)}';
+  css += '.suggest-card{padding:14px;border:1px solid var(--border);border-radius:12px;background:var(--bg);cursor:pointer;transition:all .2s ease;display:flex;align-items:center;gap:12px;-webkit-tap-highlight-color:transparent}.suggest-card:hover,.suggest-card:active{border-color:var(--accent);background:var(--accent-soft);transform:translateX(4px)}';
   css += '.scan-line{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--accent),transparent);animation:scanMove 1.5s ease-in-out infinite}@keyframes scanMove{0%,100%{top:0;opacity:0}50%{top:calc(100% - 3px);opacity:1}}';
   css += '.photo-preview{position:relative;border-radius:12px;overflow:hidden;border:2px solid var(--border);max-width:200px}';
   css += '.exercise-item{transition:all .2s ease}.exercise-item.done{opacity:.65}.exercise-item.done .ex-name{text-decoration:line-through}.exercise-item:hover{background:var(--accent-soft)}';
   css += '.meal-card{transition:transform .25s ease,box-shadow .25s ease}.meal-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(13,150,105,.12)}';
+  css += '.action-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 20px;border-radius:12px;font-weight:700;font-size:14px;border:none;cursor:pointer;transition:all .2s ease;-webkit-tap-highlight-color:transparent}';
+  css += '.action-btn.primary{background:var(--accent);color:#fff}.action-btn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px var(--accent-soft)}';
+  css += '.action-btn.secondary{background:var(--accent2);color:#fff}.action-btn.secondary:hover{transform:translateY(-2px);box-shadow:0 8px 24px var(--accent2-soft)}';
   var s = document.createElement('style');
   s.textContent = css;
   document.head.appendChild(s);
@@ -51,7 +54,7 @@
       <span id="streakCount">0</span> ngày liên tục
     </div>
   </div>
-  <p style="color:var(--muted);max-width:620px;line-height:1.7;font-size:16px;">Hướng dẫn tập luyện + thực đơn + công cụ tính toán + nhật ký ăn uống có hỗ trợ chụp ảnh</p>
+  <p style="color:var(--muted);max-width:620px;line-height:1.7;font-size:16px;">Hướng dẫn tập luyện + thực đơn + công cụ tính toán + nhật ký ăn uống có hỗ trợ chụp ảnh AI</p>
 </div>
 
 <!-- METRIC CARDS -->
@@ -175,8 +178,50 @@
   </div>
 </div>
 
-<!-- TAB: FOOD LOG -->
+<!-- TAB: FOOD LOG (với CHỤP ẢNH nổi bật) -->
 <div id="foodlog" class="tab-content" style="padding:28px 0;">
+  
+  <!-- PHẦN CHỤP ẢNH - NỔI BẬT NHẤT ĐẦU TRANG -->
+  <div class="rounded-2xl p-7 mb-6" style="background:linear-gradient(135deg,var(--accent-soft),var(--accent2-soft));border:2px solid var(--accent);">
+    <h2 class="text-xl font-bold mb-2" style="color:var(--text);">
+      📸 Chụp ảnh món ăn — AI tính calo
+    </h2>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:18px;">Chụp ảnh món ăn của anh → hệ thống phân tích và gợi ý món kèm calo chính xác</p>
+    
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px;">
+      <button id="btnCamera" class="action-btn primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        Chụp ảnh mới
+      </button>
+      <button id="btnGallery" class="action-btn secondary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Chọn từ thư viện
+      </button>
+    </div>
+    
+    <input type="file" id="photoInputCamera" accept="image/*" capture="environment" style="display:none;">
+    <input type="file" id="photoInputGallery" accept="image/*" style="display:none;">
+    
+    <div id="photoResult" style="display:none;">
+      <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;">
+        <div class="photo-preview" style="position:relative;">
+          <img id="photoPreview" style="width:180px;height:180px;object-fit:cover;display:block;border-radius:10px;">
+          <div id="scanLine" class="scan-line" style="display:none;"></div>
+        </div>
+        <div style="flex:1;min-width:200px;">
+          <div id="scanStatus" style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:6px;">📷 Đang phân tích ảnh...</div>
+          <div id="scanSubStatus" style="font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:10px;">Nhận diện đặc điểm món ăn</div>
+          <div style="margin-bottom:10px;"><label style="display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;">Thêm vào bữa:</label><select id="photoMeal" class="calc-select" style="padding:8px 12px;font-size:13px;max-width:200px;"><option value="breakfast">🌅 Bữa sáng</option><option value="lunch">☀️ Bữa trưa</option><option value="dinner">🌆 Bữa tối</option><option value="snack">🥤 Bữa phụ</option></select></div>
+          <button id="cancelPhoto" style="padding:6px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:12px;cursor:pointer;">Hủy ảnh</button>
+        </div>
+      </div>
+      <div style="margin-top:16px;">
+        <div style="font-size:13px;font-weight:700;margin-bottom:10px;">🎯 Kết quả gợi ý phù hợp nhất (nhấn để thêm):</div>
+        <div id="suggestionList" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;"></div>
+      </div>
+    </div>
+  </div>
+
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
     <div class="lg:col-span-1 rounded-2xl p-7" style="background:var(--card);border:1px solid var(--border);">
       <h2 class="text-xl font-bold mb-4">Hôm nay</h2>
@@ -202,42 +247,6 @@
     </div>
 
     <div class="lg:col-span-2" style="display:flex;flex-direction:column;gap:16px;">
-      <!-- PHẦN CHỤP ẢNH -->
-      <div class="rounded-2xl p-7" style="background:var(--card);border:1px solid var(--border);">
-        <h2 class="text-xl font-bold mb-2">📸 Chụp / Tải ảnh món ăn</h2>
-        <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">Chụp ảnh món ăn → hệ thống gợi ý món kèm calo ước tính</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;">
-          <div>
-            <label id="uploadArea" class="upload-area" for="photoInput">
-              <input type="file" id="photoInput" accept="image/*" capture="environment" style="display:none;">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--accent);margin:0 auto 10px;display:block;"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-              <div style="font-weight:700;margin-bottom:4px;">Nhấn để chụp / tải ảnh</div>
-              <div style="font-size:12px;color:var(--muted);">Hỗ trợ camera hoặc thư viện</div>
-            </label>
-            <div id="photoPreviewWrap" style="display:none;margin-top:14px;">
-              <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;">
-                <div class="photo-preview" id="photoPreviewBox" style="position:relative;">
-                  <img id="photoPreview" style="width:180px;height:180px;object-fit:cover;display:block;">
-                  <div id="scanLine" class="scan-line" style="display:none;"></div>
-                </div>
-                <div style="flex:1;min-width:160px;">
-                  <div id="scanStatus" style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:6px;">📷 Đang phân tích...</div>
-                  <div id="scanSubStatus" style="font-size:12px;color:var(--muted);line-height:1.5;">Nhận diện đặc điểm món ăn</div>
-                  <button id="cancelPhoto" style="margin-top:10px;padding:6px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--muted);font-size:12px;cursor:pointer;">Hủy ảnh</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div style="font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
-              <span id="suggestIcon">💡</span><span id="suggestTitle">Gợi ý món ăn:</span>
-            </div>
-            <div id="suggestionList" style="display:flex;flex-direction:column;gap:8px;max-height:260px;overflow-y:auto;"></div>
-            <div style="margin-top:10px;"><label style="display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;">Chọn bữa ăn để thêm:</label><select id="photoMeal" class="calc-select" style="padding:8px 12px;font-size:13px;"><option value="breakfast">🌅 Bữa sáng</option><option value="lunch">☀️ Bữa trưa</option><option value="dinner">🌆 Bữa tối</option><option value="snack">🥤 Bữa phụ</option></select></div>
-          </div>
-        </div>
-      </div>
-
       <!-- FORM NHẬP THỦ CÔNG -->
       <div class="rounded-2xl p-7" style="background:var(--card);border:1px solid var(--border);">
         <h3 style="font-weight:700;font-size:16px;margin-bottom:14px;">Hoặc nhập thủ công</h3>
@@ -477,11 +486,7 @@
   function loadFoodState(){
     try{
       var raw=localStorage.getItem('myhifit_food_v1');
-      if(raw){
-        var p=JSON.parse(raw);
-        if(p.date===todayKey())foodState.foods=p.foods||{};
-        if(p.targetCalo)foodState.targetCalo=p.targetCalo;
-      }
+      if(raw){var p=JSON.parse(raw);if(p.date===todayKey())foodState.foods=p.foods||{};if(p.targetCalo)foodState.targetCalo=p.targetCalo;}
     }catch(e){}
   }
   function saveFoodState(){try{localStorage.setItem('myhifit_food_v1',JSON.stringify({date:todayKey(),foods:foodState.foods,targetCalo:foodState.targetCalo}));}catch(e){}}
@@ -689,36 +694,50 @@
       });
     });
   }
-  renderSuggest(foodDB.slice(0,8));
 
-  // ===== XỬ LÝ ẢNH =====
-  var photoInput=document.getElementById('photoInput');
-  var photoPreviewWrap=document.getElementById('photoPreviewWrap');
+  // ===== XỬ LÝ CHỤP ẢNH - SỬA LẠI DÙNG BUTTON TRỰC TIẾP =====
+  var inputCamera=document.getElementById('photoInputCamera');
+  var inputGallery=document.getElementById('photoInputGallery');
+  var btnCamera=document.getElementById('btnCamera');
+  var btnGallery=document.getElementById('btnGallery');
+  var photoResult=document.getElementById('photoResult');
   var photoPreview=document.getElementById('photoPreview');
   var scanLine=document.getElementById('scanLine');
   var scanStatus=document.getElementById('scanStatus');
   var scanSubStatus=document.getElementById('scanSubStatus');
-  var suggestIcon=document.getElementById('suggestIcon');
-  var suggestTitle=document.getElementById('suggestTitle');
 
-  photoInput.addEventListener('change',function(e){
-    if(!e.target.files.length)return;
-    var file=e.target.files[0];
+  // Nút Chụp ảnh
+  btnCamera.addEventListener('click',function(){inputCamera.click();});
+  inputCamera.addEventListener('change',function(e){if(e.target.files.length)handlePhotoFile(e.target.files[0]);});
+
+  // Nút Tải ảnh từ thư viện
+  btnGallery.addEventListener('click',function(){inputGallery.click();});
+  inputGallery.addEventListener('change',function(e){if(e.target.files.length)handlePhotoFile(e.target.files[0]);});
+
+  // Nút Hủy ảnh
+  document.getElementById('cancelPhoto').addEventListener('click',function(){
+    photoResult.style.display='none';
+    inputCamera.value='';
+    inputGallery.value='';
+    scanLine.style.display='none';
+  });
+
+  // Xử lý file ảnh
+  function handlePhotoFile(file){
     if(!file.type.startsWith('image/')){alert('Vui lòng chọn file ảnh!');return;}
     var reader=new FileReader();
     reader.onload=function(ev){
       photoPreview.src=ev.target.result;
-      photoPreviewWrap.style.display='block';
+      photoResult.style.display='block';
       scanLine.style.display='block';
       scanStatus.textContent='📷 Đang phân tích ảnh...';
       scanStatus.style.color='var(--accent)';
       scanSubStatus.textContent='Nhận diện đặc điểm màu sắc, hình dạng';
-      suggestIcon.textContent='🔍';
-      suggestTitle.textContent='Đang phân tích...';
+      
       var steps=[
         {delay:600,status:'📊 Phân tích màu sắc & kết cấu',sub:'Xác định nhóm món ăn chính'},
         {delay:1200,status:'🔍 So sánh với cơ sở dữ liệu',sub:'36 món ăn Việt Nam phổ biến'},
-        {delay:1800,status:'✅ Phân tích hoàn tất!',sub:'Chọn đúng món ăn bên dưới để thêm'}
+        {delay:1800,status:'✅ Phân tích hoàn tất!',sub:'Nhấn vào đúng món ăn bên dưới để thêm'}
       ];
       steps.forEach(function(s,i){
         setTimeout(function(){
@@ -726,8 +745,6 @@
           scanSubStatus.textContent=s.sub;
           if(i===steps.length-1){
             scanLine.style.display='none';
-            suggestIcon.textContent='🎯';
-            suggestTitle.textContent='Kết quả gợi ý phù hợp nhất:';
             var shuffled=foodDB.slice().sort(function(){return 0.5-Math.random();});
             renderSuggest(shuffled.slice(0,6));
           }
@@ -735,16 +752,7 @@
       });
     };
     reader.readAsDataURL(file);
-  });
-
-  document.getElementById('cancelPhoto').addEventListener('click',function(){
-    photoPreviewWrap.style.display='none';
-    photoInput.value='';
-    scanLine.style.display='none';
-    suggestIcon.textContent='💡';
-    suggestTitle.textContent='Gợi ý món ăn:';
-    renderSuggest(foodDB.slice(0,8));
-  });
+  }
 
   // ===== GÁN SỰ KIỆN =====
   document.getElementById('calcBtn').addEventListener('click',calculate);
