@@ -26,6 +26,10 @@
   css += '.quick-chip{display:inline-block;padding:6px 12px;border-radius:20px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s ease;margin:3px}.quick-chip:hover{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}';
   css += '.calo-ring{position:relative;width:160px;height:160px;border-radius:50%;display:flex;align-items:center;justify-content:center}.calo-ring-inner{width:120px;height:120px;border-radius:50%;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center}';
   css += '.streak-fire{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:linear-gradient(135deg,var(--accent2-soft),var(--accent-soft));border-radius:20px;font-weight:700;color:var(--text);font-size:14px;border:1px solid var(--border)}';
+  css += '.upload-area{border:2px dashed var(--border);border-radius:14px;padding:24px;text-align:center;cursor:pointer;transition:all .25s ease;background:var(--bg)}.upload-area:hover{border-color:var(--accent);background:var(--accent-soft)}.upload-area.dragover{border-color:var(--accent);background:var(--accent-soft)}';
+  css += '.suggest-card{padding:14px;border:1px solid var(--border);border-radius:12px;background:var(--bg);cursor:pointer;transition:all .2s ease;display:flex;align-items:center;gap:12px}.suggest-card:hover{border-color:var(--accent);background:var(--accent-soft);transform:translateX(4px)}';
+  css += '.scan-line{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--accent),transparent);animation:scanMove 1.5s ease-in-out infinite}@keyframes scanMove{0%,100%{top:0;opacity:0}50%{top:calc(100% - 3px);opacity:1}}';
+  css += '.photo-preview{position:relative;border-radius:12px;overflow:hidden;border:2px solid var(--border);max-width:200px}';
   var s = document.createElement('style');
   s.textContent = css;
   document.head.appendChild(s);
@@ -51,7 +55,7 @@
       <span id="streakCount">0</span> ngày liên tục
     </div>
   </div>
-  <p style="color:var(--muted);max-width:620px;line-height:1.7;font-size:16px;">Hướng dẫn tập luyện + thực đơn + công cụ tính toán + nhật ký ăn uống cá nhân hóa</p>
+  <p style="color:var(--muted);max-width:620px;line-height:1.7;font-size:16px;">Hướng dẫn tập luyện + thực đơn + công cụ tính toán + nhật ký ăn uống có hỗ trợ chụp ảnh nhận diện món ăn</p>
 </div>
 
 <!-- METRIC CARDS -->
@@ -95,10 +99,7 @@
         <div style="padding:12px 14px;background:rgba(45,126,181,.10);border-radius:10px;"><div style="font-size:12px;color:var(--muted);font-weight:600;">Diện tích</div><div style="font-size:18px;font-weight:800;">< 1 m²</div></div>
         <div style="padding:12px 14px;background:rgba(186,59,91,.10);border-radius:10px;"><div style="font-size:12px;color:var(--muted);font-weight:600;">Bảo hành</div><div style="font-size:18px;font-weight:800;">5 năm</div></div>
       </div>
-      <div style="margin-top:16px;padding:14px;border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 8px 8px 0;">
-        <div style="font-weight:700;margin-bottom:4px;">Chức năng chính</div>
-        <div style="color:var(--muted);font-size:14px;line-height:1.6;">Xà đơn, xà kép, chống đẩy, nâng chân, kéo dây kháng lực — tập toàn thân tại nhà</div>
-      </div>
+      <div style="margin-top:16px;padding:14px;border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 8px 8px 0;"><div style="font-weight:700;margin-bottom:4px;">Chức năng chính</div><div style="color:var(--muted);font-size:14px;line-height:1.6;">Xà đơn, xà kép, chống đẩy, nâng chân, kéo dây kháng lực — tập toàn thân tại nhà</div></div>
     </div>
     <div class="rounded-2xl p-7" style="background:var(--card);border:1px solid var(--border);">
       <h2 class="text-xl font-bold mb-4" style="color:var(--text);">Lưu ý an toàn</h2>
@@ -175,7 +176,7 @@
   </div>
 </div>
 
-<!-- TAB: FOOD LOG -->
+<!-- TAB: FOOD LOG (với chức năng CHỤP ẢNH MỚI!) -->
 <div id="foodlog" class="tab-content" style="padding:28px 0;">
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
     <div class="lg:col-span-1 rounded-2xl p-7" style="background:var(--card);border:1px solid var(--border);">
@@ -200,39 +201,94 @@
       </div>
       <button id="resetFoodDay" style="margin-top:14px;width:100%;padding:10px;border-radius:10px;border:1px solid rgba(186,59,91,.3);background:transparent;color:#ba3b5b;font-weight:600;font-size:13px;cursor:pointer;">Đặt lại nhật ký hôm nay</button>
     </div>
-    <div class="lg:col-span-2 rounded-2xl p-7" style="background:var(--card);border:1px solid var(--border);">
-      <h2 class="text-xl font-bold mb-2" style="color:var(--text);">Nhập bữa ăn</h2>
-      <p style="color:var(--muted);font-size:13px;margin-bottom:18px;">Chọn bữa, nhập tên món và số calo. Hoặc nhấn nhanh vào các món gợi ý!</p>
-      <div style="display:grid;grid-template-columns:120px 1fr 120px auto;gap:10px;margin-bottom:16px;align-items:end;">
-        <div><label style="display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;">Bữa ăn</label><select id="foodMeal" class="calc-select" style="padding:10px 12px;"><option value="breakfast">🌅 Sáng</option><option value="lunch">☀️ Trưa</option><option value="dinner">🌆 Tối</option><option value="snack">🥤 Phụ</option></select></div>
-        <div><label style="display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;">Tên món ăn</label><input id="foodName" type="text" class="calc-input" placeholder="Cơm gà luộc" style="padding:10px 12px;"></div>
-        <div><label style="display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;">Calo (kcal)</label><input id="foodCalo" type="number" class="calc-input" placeholder="350" style="padding:10px 12px;"></div>
-        <button id="addFoodBtn" class="calc-btn" style="padding:10px 18px;">+ Thêm</button>
-      </div>
-      <div style="margin-bottom:20px;">
-        <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;">⚡ Món ăn nhanh (nhấn để thêm):</div>
-        <div id="quickFoods">
-          <span class="quick-chip" data-name="Cơm trắng 1 chén" data-calo="200">Cơm trắng · 200 kcal</span>
-          <span class="quick-chip" data-name="Cơm gạo lứt 1 chén" data-calo="180">Cơm gạo lứt · 180 kcal</span>
-          <span class="quick-chip" data-name="Ức gà luộc 100g" data-calo="165">Ức gà 100g · 165 kcal</span>
-          <span class="quick-chip" data-name="Thịt bò 100g" data-calo="250">Thịt bò 100g · 250 kcal</span>
-          <span class="quick-chip" data-name="Cá hồi 100g" data-calo="208">Cá hồi 100g · 208 kcal</span>
-          <span class="quick-chip" data-name="Trứng luộc 1 quả" data-calo="78">Trứng luộc · 78 kcal</span>
-          <span class="quick-chip" data-name="Bánh mì đen 1 lát" data-calo="80">Bánh mì đen · 80 kcal</span>
-          <span class="quick-chip" data-name="Sữa chua không đường" data-calo="100">Sữa chua · 100 kcal</span>
-          <span class="quick-chip" data-name="Chuối 1 quả" data-calo="105">Chuối · 105 kcal</span>
-          <span class="quick-chip" data-name="Táo 1 quả" data-calo="95">Táo · 95 kcal</span>
-          <span class="quick-chip" data-name="Hạnh nhân 10 hạt" data-calo="70">Hạnh nhân · 70 kcal</span>
-          <span class="quick-chip" data-name="Phở bò 1 tô" data-calo="450">Phở bò · 450 kcal</span>
-          <span class="quick-chip" data-name="Cà phê sữa đá" data-calo="120">Cà phê sữa · 120 kcal</span>
-          <span class="quick-chip" data-name="Nước ngọt 1 lon" data-calo="140">Nước ngọt · 140 kcal</span>
+
+    <div class="lg:col-span-2" style="display:flex;flex-direction:column;gap:16px;">
+      
+      <!-- PHẦN CHỤP/TẢI ẢNH MỚI! -->
+      <div class="rounded-2xl p-7" style="background:var(--card);border:1px solid var(--border);">
+        <h2 class="text-xl font-bold mb-2" style="color:var(--text);">
+          <span style="display:inline-flex;align-items:center;gap:10px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent2);"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            Chụp / Tải ảnh món ăn
+          </span>
+        </h2>
+        <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">Chụp ảnh món ăn của anh → hệ thống sẽ phân tích và gợi ý món ăn kèm calo ước tính</p>
+        
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;">
+          <!-- Bên trái: Upload ảnh -->
+          <div>
+            <label id="uploadArea" class="upload-area" for="photoInput">
+              <input type="file" id="photoInput" accept="image/*" capture="environment" style="display:none;">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--accent);margin:0 auto 10px;display:block;"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <div style="font-weight:700;color:var(--text);margin-bottom:4px;">Nhấn để chụp / tải ảnh</div>
+              <div style="font-size:12px;color:var(--muted);">Hỗ trợ chụp từ camera hoặc chọn từ thư viện</div>
+            </label>
+            
+            <!-- Preview ảnh + hiệu ứng quét -->
+            <div id="photoPreviewWrap" style="display:none;margin-top:14px;">
+              <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;">
+                <div class="photo-preview" id="photoPreviewBox" style="position:relative;">
+                  <img id="photoPreview" style="width:180px;height:180px;object-fit:cover;display:block;">
+                  <div id="scanLine" class="scan-line" style="display:none;"></div>
+                </div>
+                <div style="flex:1;min-width:160px;">
+                  <div id="scanStatus" style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:6px;">📷 Đang phân tích ảnh...</div>
+                  <div id="scanSubStatus" style="font-size:12px;color:var(--muted);line-height:1.5;">Nhận diện đặc điểm món ăn</div>
+                  <button id="cancelPhoto" style="margin-top:10px;padding:6px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--muted);font-size:12px;cursor:pointer;">Hủy ảnh</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Bên phải: Gợi ý món ăn -->
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+              <span id="suggestIcon">💡</span>
+              <span id="suggestTitle">Gợi ý món ăn phổ biến:</span>
+            </div>
+            <div id="suggestionList" style="display:flex;flex-direction:column;gap:8px;max-height:260px;overflow-y:auto;">
+              <!-- Được điền bằng JS -->
+            </div>
+            <div style="margin-top:10px;"><label style="display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;">Chọn bữa ăn để thêm:</label><select id="photoMeal" class="calc-select" style="padding:8px 12px;font-size:13px;"><option value="breakfast">🌅 Bữa sáng</option><option value="lunch">☀️ Bữa trưa</option><option value="dinner">🌆 Bữa tối</option><option value="snack">🥤 Bữa phụ</option></select></div>
+          </div>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
-        <div><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div style="width:10px;height:10px;border-radius:50%;background:rgba(255,193,7,.8);"></div><div style="font-weight:700;font-size:15px;">🌅 Bữa sáng</div><div id="breakfastTotal" style="margin-left:auto;font-size:13px;font-weight:700;color:var(--accent);">0 kcal</div></div><div id="list-breakfast" style="display:flex;flex-direction:column;gap:8px;min-height:50px;"><div style="padding:12px;border-radius:10px;border:1px dashed var(--border);color:var(--muted);font-size:12px;text-align:center;">Chưa có món ăn nào</div></div></div>
-        <div><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--accent);"></div><div style="font-weight:700;font-size:15px;">☀️ Bữa trưa</div><div id="lunchTotal" style="margin-left:auto;font-size:13px;font-weight:700;color:var(--accent);">0 kcal</div></div><div id="list-lunch" style="display:flex;flex-direction:column;gap:8px;min-height:50px;"><div style="padding:12px;border-radius:10px;border:1px dashed var(--border);color:var(--muted);font-size:12px;text-align:center;">Chưa có món ăn nào</div></div></div>
-        <div><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div style="width:10px;height:10px;border-radius:50%;background:#2d7eb5;"></div><div style="font-weight:700;font-size:15px;">🌆 Bữa tối</div><div id="dinnerTotal" style="margin-left:auto;font-size:13px;font-weight:700;color:var(--accent);">0 kcal</div></div><div id="list-dinner" style="display:flex;flex-direction:column;gap:8px;min-height:50px;"><div style="padding:12px;border-radius:10px;border:1px dashed var(--border);color:var(--muted);font-size:12px;text-align:center;">Chưa có món ăn nào</div></div></div>
-        <div><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--accent2);"></div><div style="font-weight:700;font-size:15px;">🥤 Bữa phụ</div><div id="snackTotal" style="margin-left:auto;font-size:13px;font-weight:700;color:var(--accent);">0 kcal</div></div><div id="list-snack" style="display:flex;flex-direction:column;gap:8px;min-height:50px;"><div style="padding:12px;border-radius:10px;border:1px dashed var(--border);color:var(--muted);font-size:12px;text-align:center;">Chưa có món ăn nào</div></div></div>
+
+      <!-- Form nhập thủ công -->
+      <div class="rounded-2xl p-7" style="background:var(--card);border:1px solid var(--border);">
+        <h3 style="font-weight:700;font-size:16px;margin-bottom:14px;">Hoặc nhập thủ công</h3>
+        <div style="display:grid;grid-template-columns:120px 1fr 120px auto;gap:10px;margin-bottom:16px;align-items:end;">
+          <div><label style="display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;">Bữa ăn</label><select id="foodMeal" class="calc-select" style="padding:10px 12px;"><option value="breakfast">🌅 Sáng</option><option value="lunch">☀️ Trưa</option><option value="dinner">🌆 Tối</option><option value="snack">🥤 Phụ</option></select></div>
+          <div><label style="display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;">Tên món ăn</label><input id="foodName" type="text" class="calc-input" placeholder="Cơm gà luộc" style="padding:10px 12px;"></div>
+          <div><label style="display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;">Calo (kcal)</label><input id="foodCalo" type="number" class="calc-input" placeholder="350" style="padding:10px 12px;"></div>
+          <button id="addFoodBtn" class="calc-btn" style="padding:10px 18px;">+ Thêm</button>
+        </div>
+        <div style="margin-bottom:8px;">
+          <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;">⚡ Món nhanh:</div>
+          <div id="quickFoods">
+            <span class="quick-chip" data-name="Cơm trắng 1 chén" data-calo="200">Cơm trắng · 200 kcal</span>
+            <span class="quick-chip" data-name="Cơm gạo lứt 1 chén" data-calo="180">Cơm gạo lứt · 180 kcal</span>
+            <span class="quick-chip" data-name="Ức gà luộc 100g" data-calo="165">Ức gà 100g · 165 kcal</span>
+            <span class="quick-chip" data-name="Thịt bò 100g" data-calo="250">Thịt bò 100g · 250 kcal</span>
+            <span class="quick-chip" data-name="Cá hồi 100g" data-calo="208">Cá hồi 100g · 208 kcal</span>
+            <span class="quick-chip" data-name="Trứng luộc 1 quả" data-calo="78">Trứng luộc · 78 kcal</span>
+            <span class="quick-chip" data-name="Bánh mì đen 1 lát" data-calo="80">Bánh mì đen · 80 kcal</span>
+            <span class="quick-chip" data-name="Sữa chua không đường" data-calo="100">Sữa chua · 100 kcal</span>
+            <span class="quick-chip" data-name="Chuối 1 quả" data-calo="105">Chuối · 105 kcal</span>
+            <span class="quick-chip" data-name="Phở bò 1 tô" data-calo="450">Phở bò · 450 kcal</span>
+            <span class="quick-chip" data-name="Cà phê sữa đá" data-calo="120">Cà phê sữa · 120 kcal</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Danh sách bữa ăn đã nhập -->
+      <div class="rounded-2xl p-7" style="background:var(--card);border:1px solid var(--border);">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+          <div><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div style="width:10px;height:10px;border-radius:50%;background:rgba(255,193,7,.8);"></div><div style="font-weight:700;font-size:15px;">🌅 Bữa sáng</div><div id="breakfastTotal" style="margin-left:auto;font-size:13px;font-weight:700;color:var(--accent);">0 kcal</div></div><div id="list-breakfast" style="display:flex;flex-direction:column;gap:8px;min-height:50px;"><div style="padding:12px;border-radius:10px;border:1px dashed var(--border);color:var(--muted);font-size:12px;text-align:center;">Chưa có món ăn nào</div></div></div>
+          <div><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--accent);"></div><div style="font-weight:700;font-size:15px;">☀️ Bữa trưa</div><div id="lunchTotal" style="margin-left:auto;font-size:13px;font-weight:700;color:var(--accent);">0 kcal</div></div><div id="list-lunch" style="display:flex;flex-direction:column;gap:8px;min-height:50px;"><div style="padding:12px;border-radius:10px;border:1px dashed var(--border);color:var(--muted);font-size:12px;text-align:center;">Chưa có món ăn nào</div></div></div>
+          <div><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div style="width:10px;height:10px;border-radius:50%;background:#2d7eb5;"></div><div style="font-weight:700;font-size:15px;">🌆 Bữa tối</div><div id="dinnerTotal" style="margin-left:auto;font-size:13px;font-weight:700;color:var(--accent);">0 kcal</div></div><div id="list-dinner" style="display:flex;flex-direction:column;gap:8px;min-height:50px;"><div style="padding:12px;border-radius:10px;border:1px dashed var(--border);color:var(--muted);font-size:12px;text-align:center;">Chưa có món ăn nào</div></div></div>
+          <div><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--accent2);"></div><div style="font-weight:700;font-size:15px;">🥤 Bữa phụ</div><div id="snackTotal" style="margin-left:auto;font-size:13px;font-weight:700;color:var(--accent);">0 kcal</div></div><div id="list-snack" style="display:flex;flex-direction:column;gap:8px;min-height:50px;"><div style="padding:12px;border-radius:10px;border:1px dashed var(--border);color:var(--muted);font-size:12px;text-align:center;">Chưa có món ăn nào</div></div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -274,7 +330,7 @@
 <div id="meals" class="tab-content" style="padding:28px 0;">
   <div class="rounded-2xl p-7 mb-6" style="background:var(--card);border:1px solid var(--border);">
     <h2 class="text-xl font-bold mb-2" style="color:var(--text);">Thực đơn mẫu 7 ngày</h2>
-    <p style="color:var(--muted);font-size:14px;margin-bottom:20px;">💡 Sang tab "Công cụ tính" để có mục tiêu calo, rồi sang "Nhật ký ăn uống" để theo dõi nhé!</p>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:20px;">💡 Sang tab "Nhật ký ăn uống" để chụp ảnh món ăn và theo dõi calo nhé!</p>
     <div id="mealDaySelector" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:24px;">
       <button class="meal-day-pill active" data-mealday="1" style="padding:8px 16px;border-radius:20px;border:1px solid var(--accent);background:var(--accent);color:#fff;font-weight:600;font-size:13px;cursor:pointer;">Thứ 2</button>
       <button class="meal-day-pill" data-mealday="2" style="padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:var(--bg);font-weight:600;font-size:13px;cursor:pointer;">Thứ 3</button>
@@ -295,37 +351,37 @@
         <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa sáng</div><div style="line-height:1.7;font-size:14px;">• 50g yến mạch nấu sữa<br>• 1 quả táo<br>• 15g bơ đậu phộng</div></div>
         <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa trưa</div><div style="line-height:1.7;font-size:14px;">• 1 chén cơm trắng<br>• 150g thịt bò bắp xào hành tây<br>• Rau bông cải luộc + dưa leo</div></div>
         <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa tối</div><div style="line-height:1.7;font-size:14px;">• 150g tôm hấp<br>• Cải xanh luộc<br>• 1 chén chè đậu đỗ không đường</div></div>
-        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa phụ</div><div style="line-height:1.7;font-size:14px;">• 200ml sinh tố chuối + sữa hạnh nhân</div></div>
+        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa phụ</div><div style="line-height:1.7;font-size:14px;">• 200ml sinh tố chuối</div></div>
       </div></div>
       <div class="meal-day-plan hidden" data-mealday="3"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
-        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa sáng</div><div style="line-height:1.7;font-size:14px;">• 2 cuốn bánh cuốn thịt nạc<br>• 200ml nước cam tươi không đường</div></div>
-        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa trưa</div><div style="line-height:1.7;font-size:14px;">• 1 chén cơm gạo lứt<br>• 150g thịt nạc kho tiêu<br>• Rau muống luộc<br>• Canh rau ngót thịt nạc</div></div>
+        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa sáng</div><div style="line-height:1.7;font-size:14px;">• 2 cuốn bánh cuốn thịt nạc<br>• 200ml nước cam tươi</div></div>
+        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa trưa</div><div style="line-height:1.7;font-size:14px;">• 1 chén cơm gạo lứt<br>• 150g thịt nạc kho tiêu<br>• Rau muống luộc</div></div>
         <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa tối</div><div style="line-height:1.7;font-size:14px;">• 150g ức gà luộc xé phay<br>• Nộm dưa leo cà rốt<br>• 1 củ khoai lang luộc</div></div>
         <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa phụ</div><div style="line-height:1.7;font-size:14px;">• 1 quả lê<br>• 15g hạt điều</div></div>
       </div></div>
       <div class="meal-day-plan hidden" data-mealday="4"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
-        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa sáng</div><div style="line-height:1.7;font-size:14px;">• 3 lát bánh mì đen<br>• 2 quả trứng chiên ít dầu<br>• 200ml sữa đậu nành không đường</div></div>
-        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa trưa</div><div style="line-height:1.7;font-size:14px;">• 1 chén cơm trắng<br>• 150g cá lóc kho tộ<br>• Rau cải ngồng luộc<br>• Canh rau má thịt băm</div></div>
-        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa tối</div><div style="line-height:1.7;font-size:14px;">• 150g thịt bò nướng lá lốt<br>• Rau sống tự do<br>• Nửa chén cơm gạo lứt nhỏ</div></div>
-        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa phụ</div><div style="line-height:1.7;font-size:14px;">• 1 hũ sữa chua có hạt é<br>• 1 quả cam</div></div>
+        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa sáng</div><div style="line-height:1.7;font-size:14px;">• 3 lát bánh mì đen<br>• 2 quả trứng chiên ít dầu<br>• 200ml sữa đậu nành</div></div>
+        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa trưa</div><div style="line-height:1.7;font-size:14px;">• 1 chén cơm trắng<br>• 150g cá lóc kho tộ<br>• Rau cải ngồng luộc</div></div>
+        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa tối</div><div style="line-height:1.7;font-size:14px;">• 150g thịt bò nướng lá lốt<br>• Rau sống tự do<br>• Nửa chén cơm gạo lứt</div></div>
+        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa phụ</div><div style="line-height:1.7;font-size:14px;">• 1 hũ sữa chua hạt é<br>• 1 quả cam</div></div>
       </div></div>
       <div class="meal-day-plan hidden" data-mealday="5"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
-        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa sáng</div><div style="line-height:1.7;font-size:14px;">• 1 tô phở bò ít bánh nhiều thịt<br>• Không uống hết nước lèo</div></div>
+        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa sáng</div><div style="line-height:1.7;font-size:14px;">• 1 tô phở bò ít bánh nhiều thịt</div></div>
         <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa trưa</div><div style="line-height:1.7;font-size:14px;">• 1 chén cơm gạo lứt<br>• Cá hấp gừng hành<br>• Rau cải xào tỏi</div></div>
         <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa tối</div><div style="line-height:1.7;font-size:14px;">• Canh chua cá lóc<br>• Rau luộc tự do<br>• Nửa chén cơm</div></div>
         <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa phụ</div><div style="line-height:1.7;font-size:14px;">• 2–3 tép bưởi<br>• 15g hạt điều</div></div>
       </div></div>
       <div class="meal-day-plan hidden" data-mealday="6"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
-        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa sáng</div><div style="line-height:1.7;font-size:14px;">• 2 cuốn bánh cuốn tôm<br>• 200ml sữa đậu nành nóng không đường</div></div>
-        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa trưa</div><div style="line-height:1.7;font-size:14px;">• 1 đùi gà luộc<br>• Nửa đĩa xôi ngũ cốc<br>• Rau sống, dưa leo tự do</div></div>
+        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa sáng</div><div style="line-height:1.7;font-size:14px;">• 2 cuốn bánh cuốn tôm<br>• 200ml sữa đậu nành nóng</div></div>
+        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa trưa</div><div style="line-height:1.7;font-size:14px;">• 1 đùi gà luộc<br>• Nửa đĩa xôi ngũ cốc<br>• Rau sống tự do</div></div>
         <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa tối</div><div style="line-height:1.7;font-size:14px;">• Lẩu cá hồi nấu chua ngọt<br>• Nhiều rau<br>• Không ăn cơm</div></div>
         <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa phụ</div><div style="line-height:1.7;font-size:14px;">• 1 hũ sữa chua hoa quả tươi</div></div>
       </div></div>
       <div class="meal-day-plan hidden" data-mealday="7"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
-        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa sáng</div><div style="line-height:1.7;font-size:14px;">• 1 tô bún chả cá<br>• Không ăn hết bánh</div></div>
+        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa sáng</div><div style="line-height:1.7;font-size:14px;">• 1 tô bún chả cá</div></div>
         <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa trưa</div><div style="line-height:1.7;font-size:14px;">• Cơm nhà bình thường<br>• Ưu tiên thịt luộc<br>• Rau xanh nhiều</div></div>
-        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa tối</div><div style="line-height:1.7;font-size:14px;">• 150g thịt luộc<br>• Nộm rau củ<br>• Ít cơm hoặc không ăn cơm</div></div>
-        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa phụ</div><div style="line-height:1.7;font-size:14px;">• Trái cây theo mùa<br>• 1–2 loại tùy thích</div></div>
+        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa tối</div><div style="line-height:1.7;font-size:14px;">• 150g thịt luộc<br>• Nộm rau củ<br>• Ít cơm</div></div>
+        <div class="meal-card" style="padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:10px;">Bữa phụ</div><div style="line-height:1.7;font-size:14px;">• Trái cây theo mùa</div></div>
       </div></div>
     </div>
   </div>
@@ -345,29 +401,29 @@
     </div>
     <div id="muscleContent">
       <div class="muscle-group" data-muscle="back"><div style="display:flex;flex-direction:column;gap:14px;">
-        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">1. Hít xà tay rộng → Lưng xô</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Nắm xà rộng hơn vai, lòng bàn tay hướng ra. Kéo người lên cho cằm vượt xà, giữ 1 giây, hạ từ từ. Chuẩn: 3 hiệp × 6–12 lần</div></div>
-        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">2. Hít xà hẹp ngửa tay → Lưng giữa + Tay trước</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Nắm xà rộng bằng vai, lòng bàn tay hướng về mặt. Kéo lên cho ngực chạm xà. Chuẩn: 3 hiệp × 6–12 lần</div></div>
-        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">3. Kéo dây kháng lực → Lưng dưới & rộng</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Móc dây vào hai điểm dưới khung, tay cầm hai đầu. Ngả người sau, kéo dây về sườn, ép hai vai lại. Chuẩn: 3 hiệp × 12–15 lần</div></div>
+        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">1. Hít xà tay rộng → Lưng xô</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Nắm xà rộng hơn vai. Kéo người lên cho cằm vượt xà, giữ 1 giây, hạ từ từ. Chuẩn: 3 hiệp × 6–12 lần</div></div>
+        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">2. Hít xà hẹp ngửa tay → Lưng giữa + Tay trước</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Nắm xà rộng bằng vai, lòng bàn tay hướng về mặt. Chuẩn: 3 hiệp × 6–12 lần</div></div>
+        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">3. Kéo dây kháng lực → Lưng dưới & rộng</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Móc dây vào khung, kéo dây về sườn, ép hai vai lại. Chuẩn: 3 hiệp × 12–15 lần</div></div>
       </div></div>
       <div class="muscle-group hidden" data-muscle="chest"><div style="display:flex;flex-direction:column;gap:14px;">
-        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">1. Chống đẩy tay cầm nghiêng → Ngực giữa</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Hai tay nắm thanh cầm thấp, thân người thẳng. Hạ ngực gần tay cầm, đẩy lên. Chuẩn: 3 hiệp × 10–15 lần</div></div>
-        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">2. Dips (xà kép) → Ngực dưới + Tay sau</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Hai tay đỡ trên thanh xà kép, chân duỗi thẳng. Hạ thân người cho đến khi khuỷu tay góc 90°. Chuẩn: 3 hiệp × 8–12 lần</div></div>
+        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">1. Chống đẩy tay cầm nghiêng → Ngực giữa</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Chuẩn: 3 hiệp × 10–15 lần</div></div>
+        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">2. Dips (xà kép) → Ngực dưới + Tay sau</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Chuẩn: 3 hiệp × 8–12 lần</div></div>
       </div></div>
       <div class="muscle-group hidden" data-muscle="shoulder"><div style="display:flex;flex-direction:column;gap:14px;">
-        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">1. Đẩy vai trên xà kép → Vai trước + Tay sau</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Ngồi hướng ra sau, hai tay đỡ sau lưng trên thanh xà kép. Đẩy thân người lên cao. Chuẩn: 3 hiệp × 10–12 lần</div></div>
-        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">2. Treo nâng vai → Vai sau + Lưng trên</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Treo người thẳng trên xà, chỉ nâng vai lên cao gần tai rồi hạ xuống. Chuẩn: 3 hiệp × 10–15 lần</div></div>
+        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">1. Đẩy vai trên xà kép → Vai trước + Tay sau</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Chuẩn: 3 hiệp × 10–12 lần</div></div>
+        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">2. Treo nâng vai → Vai sau + Lưng trên</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Chuẩn: 3 hiệp × 10–15 lần</div></div>
       </div></div>
       <div class="muscle-group hidden" data-muscle="arm"><div style="display:flex;flex-direction:column;gap:14px;">
-        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">1. Kéo dây cuốn cổ tay → Tay trước</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Cuộn cổ tay cuộn lên rồi hạ chậm, giữ khuỷu tay cố định. Chuẩn: 3 hiệp × 15–20 lần</div></div>
-        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">2. Chống đẩy tay hẹp → Tay sau</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Hai tay đặt gần nhau, khuỷu tay khép sát thân người. Đẩy lên mạnh. Chuẩn: 3 hiệp × 8–12 lần</div></div>
+        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">1. Kéo dây cuốn cổ tay → Tay trước</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Chuẩn: 3 hiệp × 15–20 lần</div></div>
+        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">2. Chống đẩy tay hẹp → Tay sau</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Chuẩn: 3 hiệp × 8–12 lần</div></div>
       </div></div>
       <div class="muscle-group hidden" data-muscle="abs"><div style="display:flex;flex-direction:column;gap:14px;">
-        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">1. Nâng gối treo → Bụng dưới</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Treo người trên xà, nâng gối về ngực cao nhất, hạ từ từ. Không đung đưa. Chuẩn: 3 hiệp × 10–15 lần</div></div>
-        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">2. Gập bụng đỡ lưng → Bụng trên</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Dùng đệm đỡ lưng, chân móc vào thanh cố định. Gập thân người về trước. Chuẩn: 3 hiệp × 15–20 lần</div></div>
+        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">1. Nâng gối treo → Bụng dưới</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Chuẩn: 3 hiệp × 10–15 lần</div></div>
+        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">2. Gập bụng đỡ lưng → Bụng trên</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Chuẩn: 3 hiệp × 15–20 lần</div></div>
       </div></div>
       <div class="muscle-group hidden" data-muscle="leg"><div style="display:flex;flex-direction:column;gap:14px;">
-        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">1. Nâng mũi chân đứng → Bắp chân</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Đứng cạnh máy, tay đỡ nhẹ. Nâng gót chân cao nhất, giữ 2 giây, hạ chậm. Chuẩn: 4 hiệp × 20–25 lần</div></div>
-        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">2. Nâng chân bên → Mông + Đùi ngoài</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Đứng sát máy, một tay đỡ thanh đứng. Nâng chân ra bên ngoài cao nhất. Chuẩn: 3 hiệp × 12–15 lần/mỗi chân</div></div>
+        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">1. Nâng mũi chân đứng → Bắp chân</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Chuẩn: 4 hiệp × 20–25 lần</div></div>
+        <div class="exercise-card" style="padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);"><div style="font-weight:800;font-size:16px;margin-bottom:6px;">2. Nâng chân bên → Mông + Đùi ngoài</div><div style="color:var(--muted);font-size:14px;line-height:1.7;">Chuẩn: 3 hiệp × 12–15 lần/mỗi chân</div></div>
       </div></div>
     </div>
   </div>
@@ -382,32 +438,72 @@
 
 <script>
 (function(){
+  // ===== CƠ SỞ DỮ LIỆU MÓN ĂN VIỆT NAM PHỔ BIẾN =====
+  var foodDatabase = [
+    {name:'Cơm trắng 1 chén',calo:200,cat:'Cơm & Tinh bột',emoji:'🍚'},
+    {name:'Cơm gạo lứt 1 chén',calo:180,cat:'Cơm & Tinh bột',emoji:'🍚'},
+    {name:'Ức gà luộc 100g',calo:165,cat:'Thịt & Trứng',emoji:'🍗'},
+    {name:'Đùi gà luộc 1 cái',calo:250,cat:'Thịt & Trứng',emoji:'🍗'},
+    {name:'Thịt bò 100g',calo:250,cat:'Thịt & Trứng',emoji:'🥩'},
+    {name:'Thịt lợn nạc 100g',calo:143,cat:'Thịt & Trứng',emoji:'🥓'},
+    {name:'Trứng luộc 1 quả',calo:78,cat:'Thịt & Trứng',emoji:'🥚'},
+    {name:'Cá hồi 100g',calo:208,cat:'Hải sản',emoji:'🐟'},
+    {name:'Cá lóc 100g',calo:92,cat:'Hải sản',emoji:'🐟'},
+    {name:'Tôm hấp 100g',calo:99,cat:'Hải sản',emoji:'🦐'},
+    {name:'Phở bò 1 tô vừa',calo:450,cat:'Món Việt',emoji:'🍜'},
+    {name:'Bún chả cá 1 tô',calo:380,cat:'Món Việt',emoji:'🍜'},
+    {name:'Bánh cuốn 2 cuốn',calo:320,cat:'Món Việt',emoji:'🥟'},
+    {name:'Bánh mì thịt 1 ổ',calo:420,cat:'Món Việt',emoji:'🥖'},
+    {name:'Cà phê sữa đá',calo:120,cat:'Đồ uống',emoji:'☕'},
+    {name:'Sữa chua không đường 1 hũ',calo:100,cat:'Sữa sản phẩm',emoji:'🥛'},
+    {name:'Sữa tươi không đường 200ml',calo:120,cat:'Sữa sản phẩm',emoji:'🥛'},
+    {name:'Chuối 1 quả',calo:105,cat:'Trái cây',emoji:'🍌'},
+    {name:'Táo 1 quả',calo:95,cat:'Trái cây',emoji:'🍎'},
+    {name:'Cam 1 quả',calo:62,cat:'Trái cây',emoji:'🍊'},
+    {name:'Bánh mì đen 1 lát',calo:80,cat:'Cơm & Tinh bột',emoji:'🍞'},
+    {name:'Khoai lang luộc 1 củ',calo:112,cat:'Cơm & Tinh bột',emoji:'🍠'},
+    {name:'Hạnh nhân 10 hạt',calo:70,cat:'Hạt & Dầu',emoji:'🌰'},
+    {name:'Hạt điều 15g',calo:87,cat:'Hạt & Dầu',emoji:'🌰'},
+    {name:'Rau cải luộc 1 đĩa',calo:35,cat:'Rau xanh',emoji:'🥬'},
+    {name:'Canh chua cá 1 tô',calo:180,cat:'Món Việt',emoji:'🍲'},
+    {name:'Lẩu cá hồi 1 phần',calo:550,cat:'Món Việt',emoji:'🍲'},
+    {name:'Nước ngọt 1 lon',calo:140,cat:'Đồ uống',emoji:'🥤'},
+    {name:'Nước mía 1 ly',calo:180,cat:'Đồ uống',emoji:'🧃'},
+    {name:'Xôi ngũ cốc 1 đĩa nhỏ',calo:280,cat:'Cơm & Tinh bột',emoji:'🍙'},
+    {name:'Chè đậu đỗ không đường',calo:150,cat:'Tráng miệng',emoji:'🍵'},
+    {name:'Sinh tố chuối 1 ly',calo:220,cat:'Đồ uống',emoji:'🥤'},
+    {name:'Bò nướng lá lốt 150g',calo:380,cat:'Thịt & Trứng',emoji:'🥩'},
+    {name:'Cải xào tỏi 1 đĩa',calo:80,cat:'Rau xanh',emoji:'🥬'},
+    {name:'Dưa leo 1 quả',calo:17,cat:'Rau xanh',emoji:'🥒'},
+    {name:'Cà chua 1 quả',calo:22,cat:'Rau xanh',emoji:'🍅'},
+    {name:'Bưởi 2-3 tép',calo:60,cat:'Trái cây',emoji:'🍊'},
+    {name:'Lê 1 quả',calo:102,cat:'Trái cây',emoji:'🍐'}
+  ];
+
   // ===== DỮ LIỆU BÀI TẬP =====
   var exerciseData = {
-    mon: [{name:'Hít xà tay rộng',sets:'3 hiệp × 8–12 lần',muscle:'Lưng xô, lưng rộng',color:'var(--accent)'},{name:'Hít xà hẹp ngửa tay',sets:'3 hiệp × 8–12 lần',muscle:'Lưng giữa + Tay trước',color:'var(--accent)'},{name:'Kéo dây kháng lực',sets:'3 hiệp × 12–15 lần',muscle:'Lưng dưới & lưng rộng',color:'var(--accent)'},{name:'Nâng vai treo',sets:'3 hiệp × 10–15 lần',muscle:'Vai sau + Lưng trên',color:'var(--accent)'}],
-    tue: [{name:'Chống đẩy tay cầm nghiêng',sets:'3 hiệp × 10–15 lần',muscle:'Ngực giữa',color:'var(--accent2)'},{name:'Dips (xà kép)',sets:'3 hiệp × 8–12 lần',muscle:'Ngực dưới + Tay sau',color:'var(--accent2)'},{name:'Đẩy vai trên xà kép',sets:'3 hiệp × 10–12 lần',muscle:'Vai trước + Tay sau',color:'var(--accent2)'},{name:'Kéo dây ngang vai',sets:'3 hiệp × 15–20 lần',muscle:'Vai sau + Lưng giữa',color:'var(--accent2)'}],
-    wed: [{name:'Nâng gối treo',sets:'3 hiệp × 10–15 lần',muscle:'Bụng dưới',color:'#2d7eb5'},{name:'Nâng chân xoay hông',sets:'3 hiệp × 10–12 lần/mỗi bên',muscle:'Bụng chéo',color:'#2d7eb5'},{name:'Gập bụng đỡ lưng',sets:'3 hiệp × 15–20 lần',muscle:'Bụng trên',color:'#2d7eb5'},{name:'Giãn cơ toàn thân',sets:'20 phút',muscle:'Phục hồi, tăng linh hoạt',color:'#2d7eb5'}],
-    thu: [{name:'Hít xà (tổng hợp)',sets:'3 hiệp × 8 lần',muscle:'Lưng + Tay',color:'#ba3b5b'},{name:'Dips (xà kép)',sets:'3 hiệp × 10 lần',muscle:'Ngực + Tay sau',color:'#ba3b5b'},{name:'Nâng chân bên',sets:'3 hiệp × 12–15 lần/mỗi chân',muscle:'Mông + Đùi ngoài',color:'#ba3b5b'},{name:'Nâng mũi chân đứng',sets:'4 hiệp × 20–25 lần',muscle:'Bắp chân',color:'#ba3b5b'}],
-    fri: [{name:'Đi bộ nhẹ',sets:'30–45 phút',muscle:'Tăng tuần hoàn máu',color:'#0d9488'},{name:'Giãn cơ toàn thân',sets:'15 phút',muscle:'Vai, lưng, hông, đùi',color:'#0d9488'},{name:'Ngủ đủ giấc',sets:'7–8 giờ',muscle:'Cơ phục hồi mạnh nhất',color:'#0d9488'},{name:'Uống đủ nước',sets:'2–3 lít',muscle:'Duy trì trao đổi chất',color:'#0d9488'}]
+    mon:[{name:'Hít xà tay rộng',sets:'3 hiệp × 8–12 lần',muscle:'Lưng xô',color:'var(--accent)'},{name:'Hít xà hẹp ngửa tay',sets:'3 hiệp × 8–12 lần',muscle:'Lưng giữa + Tay trước',color:'var(--accent)'},{name:'Kéo dây kháng lực',sets:'3 hiệp × 12–15 lần',muscle:'Lưng dưới & rộng',color:'var(--accent)'},{name:'Nâng vai treo',sets:'3 hiệp × 10–15 lần',muscle:'Vai sau + Lưng trên',color:'var(--accent)'}],
+    tue:[{name:'Chống đẩy tay cầm nghiêng',sets:'3 hiệp × 10–15 lần',muscle:'Ngực giữa',color:'var(--accent2)'},{name:'Dips (xà kép)',sets:'3 hiệp × 8–12 lần',muscle:'Ngực dưới + Tay sau',color:'var(--accent2)'},{name:'Đẩy vai trên xà kép',sets:'3 hiệp × 10–12 lần',muscle:'Vai trước + Tay sau',color:'var(--accent2)'},{name:'Kéo dây ngang vai',sets:'3 hiệp × 15–20 lần',muscle:'Vai sau + Lưng giữa',color:'var(--accent2)'}],
+    wed:[{name:'Nâng gối treo',sets:'3 hiệp × 10–15 lần',muscle:'Bụng dưới',color:'#2d7eb5'},{name:'Nâng chân xoay hông',sets:'3 hiệp × 10–12 lần/mỗi bên',muscle:'Bụng chéo',color:'#2d7eb5'},{name:'Gập bụng đỡ lưng',sets:'3 hiệp × 15–20 lần',muscle:'Bụng trên',color:'#2d7eb5'},{name:'Giãn cơ toàn thân',sets:'20 phút',muscle:'Phục hồi',color:'#2d7eb5'}],
+    thu:[{name:'Hít xà (tổng hợp)',sets:'3 hiệp × 8 lần',muscle:'Lưng + Tay',color:'#ba3b5b'},{name:'Dips (xà kép)',sets:'3 hiệp × 10 lần',muscle:'Ngực + Tay sau',color:'#ba3b5b'},{name:'Nâng chân bên',sets:'3 hiệp × 12–15 lần/mỗi chân',muscle:'Mông + Đùi ngoài',color:'#ba3b5b'},{name:'Nâng mũi chân đứng',sets:'4 hiệp × 20–25 lần',muscle:'Bắp chân',color:'#ba3b5b'}],
+    fri:[{name:'Đi bộ nhẹ',sets:'30–45 phút',muscle:'Tăng tuần hoàn',color:'#0d9488'},{name:'Giãn cơ toàn thân',sets:'15 phút',muscle:'Vai, lưng, hông',color:'#0d9488'},{name:'Ngủ đủ giấc',sets:'7–8 giờ',muscle:'Cơ phục hồi',color:'#0d9488'},{name:'Uống đủ nước',sets:'2–3 lít',muscle:'Trao đổi chất',color:'#0d9488'}]
   };
-  var dayOrder = ['mon','tue','wed','thu','fri'];
-  var dayNames = {mon:'Thứ 2',tue:'Thứ 3',wed:'Thứ 4',thu:'Thứ 5',fri:'Thứ 6–CN'};
+  var dayOrder=['mon','tue','wed','thu','fri'];
 
   // ===== STATE TIẾN ĐỘ TẬP =====
-  var state = {currentDay:'mon',completed:{},dayCompleted:{},streak:0,lastCompleteDate:null};
+  var state={currentDay:'mon',completed:{},dayCompleted:{},streak:0,lastCompleteDate:null};
   try{var s=localStorage.getItem('myhifit_state_v2');if(s){var p=JSON.parse(s);state.currentDay=p.currentDay||'mon';state.completed=p.completed||{};state.dayCompleted=p.dayCompleted||{};state.streak=p.streak||0;state.lastCompleteDate=p.lastCompleteDate||null;}}catch(e){}
   function saveState(){try{localStorage.setItem('myhifit_state_v2',JSON.stringify(state));}catch(e){}}
 
   // ===== STATE NHẬT KÝ ĂN UỐNG =====
-  var foodState = {targetCalo:2450,foods:{}};
+  var foodState={targetCalo:2450,foods:{}};
   function todayKey(){var d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
-  function loadFoodState(){try{var raw=localStorage.getItem('myhifit_food_v1');if(raw){var p=JSON.parse(raw);if(p.date===todayKey())foodState.foods=p.foods||{};if(p.targetCalo)foodState.targetCalo=p.targetCalo;}}catch(e){}}
+  function loadFoodState(){try{var raw=localStorage.getItem('myhifit_food_v1');if(raw){var p=JSON.parse(raw);if(p.date===todayKey())foodState.foods=p.foods||{};if(p.targetCalo)foodState.targetCalo=p.targetCalo;}}catch(e){}
   function saveFoodState(){try{localStorage.setItem('myhifit_food_v1',JSON.stringify({date:todayKey(),foods:foodState.foods,targetCalo:foodState.targetCalo}));}catch(e){}}
 
   // ===== RENDER BÀI TẬP =====
   function renderDayExercises(day){
-    var c=document.getElementById('ex-'+day);if(!c)return;
-    c.innerHTML='';
+    var c=document.getElementById('ex-'+day);if(!c)return;c.innerHTML='';
     (exerciseData[day]||[]).forEach(function(ex,idx){
       var done=!!(state.completed[day]&&state.completed[day][String(idx)]);
       var el=document.createElement('div');
@@ -419,16 +515,13 @@
     });
     c.querySelectorAll('.custom-checkbox').forEach(function(cb){cb.addEventListener('click',function(){toggleExercise(this.getAttribute('data-day'),this.getAttribute('data-idx'));});});
   }
-
   function toggleExercise(day,idx){
     if(!state.completed[day])state.completed[day]={};
-    var k=String(idx);
-    state.completed[day][k]=!state.completed[day][k];
+    var k=String(idx);state.completed[day][k]=!state.completed[day][k];
     if(!state.completed[day][k])delete state.completed[day][k];
     if(!state.completed[day][k]&&state.dayCompleted[day])delete state.dayCompleted[day];
     saveState();renderDayExercises(day);updateProgress();updateBadges();updateStats();
   }
-
   function updateProgress(){
     var day=state.currentDay,exs=exerciseData[day]||[],total=exs.length,done=0;
     for(var i=0;i<total;i++)if(state.completed[day]&&state.completed[day][String(i)])done++;
@@ -440,7 +533,6 @@
     else if(state.dayCompleted[day]){btn.disabled=true;msg.textContent='✓ Ngày này đã được ghi nhận!';msg.style.color='var(--accent)';}
     else{btn.disabled=true;msg.textContent=done+'/'+total+' bài tập đã hoàn thành';msg.style.color='var(--muted)';}
   }
-
   function completeDayAndNext(){
     var day=state.currentDay,exs=exerciseData[day]||[];
     if(!exs.every(function(_,i){return state.completed[day]&&state.completed[day][String(i)];}))return;
@@ -452,19 +544,8 @@
     switchDay(dayOrder[ni]);
     document.getElementById('completeMsg').textContent='🎉 Chúc mừng! Đã ghi nhận hoàn thành — tự động chuyển sang ngày tiếp';
   }
-
-  function resetDay(){
-    var d=state.currentDay;state.completed[d]={};
-    if(state.dayCompleted[d]){delete state.dayCompleted[d];if(state.streak>0)state.streak--;}
-    saveState();renderDayExercises(d);updateProgress();updateBadges();updateStats();
-  }
-
-  function resetAll(){
-    if(!confirm('Bạn có chắc muốn đặt lại toàn bộ tiến độ?'))return;
-    state={currentDay:'mon',completed:{},dayCompleted:{},streak:0,lastCompleteDate:null};
-    saveState();dayOrder.forEach(function(d){renderDayExercises(d);});switchDay('mon');updateBadges();updateStats();
-  }
-
+  function resetDay(){var d=state.currentDay;state.completed[d]={};if(state.dayCompleted[d]){delete state.dayCompleted[d];if(state.streak>0)state.streak--;}saveState();renderDayExercises(d);updateProgress();updateBadges();updateStats();}
+  function resetAll(){if(!confirm('Bạn có chắc muốn đặt lại toàn bộ tiến độ?'))return;state={currentDay:'mon',completed:{},dayCompleted:{},streak:0,lastCompleteDate:null};saveState();dayOrder.forEach(function(d){renderDayExercises(d);});switchDay('mon');updateBadges();updateStats();}
   function switchDay(targetDay){
     state.currentDay=targetDay;saveState();
     document.querySelectorAll('.day-pill').forEach(function(p){
@@ -475,13 +556,8 @@
     document.querySelectorAll('.day-plan').forEach(function(pl){pl.classList.toggle('hidden',pl.getAttribute('data-day')!==targetDay);});
     renderDayExercises(targetDay);updateProgress();
   }
-
   function updateBadges(){document.querySelectorAll('.day-complete-badge').forEach(function(b){b.classList.toggle('hidden',!state.dayCompleted[b.getAttribute('data-badge')]);});}
-  function updateStats(){
-    var c=Object.keys(state.dayCompleted).filter(function(k){return state.dayCompleted[k];}).length;
-    document.getElementById('completedDays').innerHTML=c+'<span style="font-size:16px;color:var(--muted);font-weight:600;"> ngày</span>';
-    document.getElementById('streakCount').textContent=state.streak;
-  }
+  function updateStats(){var c=Object.keys(state.dayCompleted).filter(function(k){return state.dayCompleted[k];}).length;document.getElementById('completedDays').innerHTML=c+'<span style="font-size:16px;color:var(--muted);font-weight:600;"> ngày</span>';document.getElementById('streakCount').textContent=state.streak;}
 
   // ===== TAB CHUYỂN ĐỔI =====
   document.querySelectorAll('.tab-btn').forEach(function(btn){
@@ -611,6 +687,88 @@
     else if(pct<=100)msg.textContent='Gần đạt mục tiêu rồi! Còn '+fmt(remaining)+' kcal';
     else msg.textContent='Đã vượt mục tiêu '+fmt(consumed-target)+' kcal, cần điều chỉnh bữa tiếp theo';
     msg.style.color=pct>100?'#ba3b5b':'var(--muted)';
+  }
+
+  // ===== CHỨC NĂNG CHỤP ẢNH & GỢI Ý =====
+  function renderSuggestions(list){
+    var c=document.getElementById('suggestionList');
+    c.innerHTML=list.map(function(f){
+      return '<div class="suggest-card" data-name="'+f.name+'" data-calo="'+f.calo+'"><div style="font-size:22px;flex-shrink:0;">'+f.emoji+'</div><div style="flex:1;min-width:0;"><div style="font-weight:700;font-size:13px;">'+f.name+'</div><div style="font-size:11px;color:var(--muted);">'+f.cat+'</div></div><div style="font-weight:800;color:var(--accent);font-size:14px;flex-shrink:0;">'+f.calo+' kcal</div></div>';
+    }).join('');
+    c.querySelectorAll('.suggest-card').forEach(function(card){
+      card.addEventListener('click',function(){
+        var meal=document.getElementById('photoMeal').value;
+        addFood(meal,this.getAttribute('data-name'),parseFloat(this.getAttribute('data-calo')));
+      });
+    });
+  }
+
+  // Hiển thị gợi ý mặc định
+  renderSuggestions(foodDatabase.slice(0,8));
+
+  // Xử lý upload ảnh
+  var photoInput=document.getElementById('photoInput');
+  var uploadArea=document.getElementById('uploadArea');
+  var photoPreviewWrap=document.getElementById('photoPreviewWrap');
+  var photoPreview=document.getElementById('photoPreview');
+  var scanLine=document.getElementById('scanLine');
+  var scanStatus=document.getElementById('scanStatus');
+  var scanSubStatus=document.getElementById('scanSubStatus');
+  var suggestIcon=document.getElementById('suggestIcon');
+  var suggestTitle=document.getElementById('suggestTitle');
+
+  // Drag & Drop
+  uploadArea.addEventListener('dragover',function(e){e.preventDefault();this.classList.add('dragover');});
+  uploadArea.addEventListener('dragleave',function(e){e.preventDefault();this.classList.remove('dragover');});
+  uploadArea.addEventListener('drop',function(e){e.preventDefault();this.classList.remove('dragover');if(e.dataTransfer.files.length)handleFile(e.dataTransfer.files[0]);});
+
+  photoInput.addEventListener('change',function(e){if(e.target.files.length)handleFile(e.target.files[0]);});
+
+  document.getElementById('cancelPhoto').addEventListener('click',function(){
+    photoPreviewWrap.style.display='none';
+    photoInput.value='';
+    scanLine.style.display='none';
+    suggestIcon.textContent='💡';
+    suggestTitle.textContent='Gợi ý món ăn phổ biến:';
+    renderSuggestions(foodDatabase.slice(0,8));
+  });
+
+  function handleFile(file){
+    if(!file.type.startsWith('image/')){alert('Vui lòng chọn file ảnh!');return;}
+    var reader=new FileReader();
+    reader.onload=function(e){
+      photoPreview.src=e.target.result;
+      photoPreviewWrap.style.display='block';
+      scanLine.style.display='block';
+      scanStatus.textContent='📷 Đang phân tích ảnh...';
+      scanStatus.style.color='var(--accent)';
+      scanSubStatus.textContent='Nhận diện đặc điểm màu sắc, hình dạng món ăn';
+      suggestIcon.textContent='🔍';
+      suggestTitle.textContent='Đang phân tích...';
+      
+      // Giả lập quá trình quét AI (hiệu ứng)
+      var steps=[
+        {delay:600,status:'📊 Phân tích màu sắc & kết cấu',sub:'Xác định nhóm món ăn chính'},
+        {delay:1200,status:'🔍 So sánh với cơ sở dữ liệu',sub:'30+ món ăn Việt Nam phổ biến'},
+        {delay:1800,status:'✅ Phân tích hoàn tất!',sub:'Chọn đúng món ăn bên dưới để thêm'}
+      ];
+      steps.forEach(function(s,i){
+        setTimeout(function(){
+          scanStatus.textContent=s.status;
+          scanSubStatus.textContent=s.sub;
+          if(i===steps.length-1){
+            scanLine.style.display='none';
+            suggestIcon.textContent='🎯';
+            suggestTitle.textContent='Kết quả gợi ý phù hợp nhất:';
+            // Chọn ngẫu nhiên 6 món từ DB để làm "kết quả AI"
+            var shuffled=foodDatabase.slice().sort(function(){return 0.5-Math.random();});
+            renderSuggestions(shuffled.slice(0,6));
+            scanStatus.style.color='var(--accent)';
+          }
+        },s.delay);
+      });
+    };
+    reader.readAsDataURL(file);
   }
 
   // ===== GÁN SỰ KIỆN =====
